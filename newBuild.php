@@ -2,7 +2,6 @@
     //把传递过来的信息入库；
     session_start();
    
-    require_once('connect.php');
     //print_r($_POST);
 
     $svn_url=$_POST["svn_url"];
@@ -49,13 +48,26 @@
     //     echo "<script>alert('验证码错误！重新填写');window.location.href='newBuild.html'</script>";
     //     //判断验证码是否填写正确
     } else{
+
+        require_once('config.php');
+        //连库
+        $con=mysql_connect(HOST, USERNAME, PASSWORD);
+    
+        //选库
+        mysql_select_db('buildserver');
+
+        //字符集
+        //mysql_query('set names utf8_bin');
+        // mysql_query("SET NAMES GB2312");     
+
         $insertsql= "insert into build_information(svn_url,svn_version,release_version,show_version,bsp_version,os_version,meter_version,oem,brief,who,remote_ip,commit_time)values(
             '$svn_url','$svn_version','$release_version','$show_version','$bsp_version','$os_version','$meter_version','$oem','$brief','$who','$remote_ip','$timenow')";
         //插入数据库
         if(!(mysql_query($insertsql))){
             echo mysql_error();
         }else{
-            echo "<script>alert('申请成功！查看状况');window.location.href='login.html'</script>";
+            echo "<script>alert('申请成功！查看状况');window.location.href='index.php'</script>";
         }
+        mysql_close($con); 
     } 
 ?>

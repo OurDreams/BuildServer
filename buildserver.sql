@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `build_information` (
   `commit_time` datetime DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `finsh_time` datetime DEFAULT NULL,
+  `file_url` char(255) COLLATE utf8_bin NOT NULL,
   UNIQUE KEY `buildid` (`buildid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 

@@ -23,7 +23,15 @@ body {
 }
 
 .container {
-	max-width:400px;
+	max-width:600px;
+	width:100%;
+	margin:0 auto;
+	position:relative;
+}
+
+.list {
+	background:#F9F9F9;
+	max-width:4096px;
 	width:100%;
 	margin:0 auto;
 	position:relative;
