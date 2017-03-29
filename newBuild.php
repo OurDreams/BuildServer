@@ -7,11 +7,15 @@
 
     $svn_url=$_POST["svn_url"];
     $svn_version=$_POST['svn_version'];
+    $release_version=$_POST['release_version'];
     $show_version=$_POST['show_version'];
     $bsp_version=$_POST['bsp_version'];
     $os_version=$_POST["os_version"];
     $meter_version=$_POST['meter_version'];
     $oem=$_POST["oem"];
+    $brief=$_POST["brief"];
+    $who=$_POST["who"];
+    $remote_ip = $_SERVER["REMOTE_ADDR"];
     $timenow = date('Y-m-d H:i:s');//获取时间作为申请时间
 
     //todo: 先查询数据库是否有重复记录
@@ -45,12 +49,13 @@
     //     echo "<script>alert('验证码错误！重新填写');window.location.href='newBuild.html'</script>";
     //     //判断验证码是否填写正确
     } else{
-	          $insertsql= "insert into build_information(svn_url,svn_version,show_version,bsp_version,os_version,meter_version,oem,commit_time)values('$svn_url','$svn_version','$show_version','$bsp_version','$os_version','$meter_version','$oem','$timenow')";
-	           //插入数据库
-                  if(!(mysql_query($insertsql))){
-	                  echo mysql_error();
-                    }else{
-	                  echo "<script>alert('申请成功！查看状况');window.location.href='login.html'</script>";
-                    }
-		        } 
+        $insertsql= "insert into build_information(svn_url,svn_version,release_version,show_version,bsp_version,os_version,meter_version,oem,brief,who,remote_ip,commit_time)values(
+            '$svn_url','$svn_version','$release_version','$show_version','$bsp_version','$os_version','$meter_version','$oem','$brief','$who','$remote_ip','$timenow')";
+        //插入数据库
+        if(!(mysql_query($insertsql))){
+            echo mysql_error();
+        }else{
+            echo "<script>alert('申请成功！查看状况');window.location.href='login.html'</script>";
+        }
+    } 
 ?>
