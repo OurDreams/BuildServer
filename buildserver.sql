@@ -27,27 +27,30 @@ SET time_zone = "+00:00";
 --
 -- insert into buildlist(svn_url,svn_version,show_version,bsp_version,os_version,meter_version,oem,time
 CREATE TABLE IF NOT EXISTS `build_information` (
-  `buildid` int(9) NOT NULL AUTO_INCREMENT,
+  `build_id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE KEY,
   `svn_url` char(255) COLLATE utf8_bin NOT NULL,
-  `svn_version` int(9)  NOT NULL,
-  `release_version` char(64) COLLATE utf8_bin NOT NULL,
-  `show_version` char(15) COLLATE utf8_bin NOT NULL,
-  `meter_version` char(20) COLLATE utf8_bin NOT NULL,
-  `bsp_version` char(20) COLLATE utf8_bin NOT NULL,
-  `os_version` char(20) COLLATE utf8_bin NOT NULL,
-  `oem` char(20) COLLATE utf8_bin NOT NULL,
-  `brief` char(255) COLLATE utf8_bin NOT NULL,
+  `svn_ver` int(9) UNSIGNED NOT NULL,
+  `release_ver` char(64) COLLATE utf8_bin NOT NULL,
+  `show_ver` char(15) COLLATE utf8_bin NOT NULL,
+  `bsp_ver` char(20) COLLATE utf8_bin NOT NULL,
+  `kernel_ver` char(20) COLLATE utf8_bin NOT NULL,
+  `meter_ver` char(20) COLLATE utf8_bin NOT NULL,
+  `oem_ver` char(20) COLLATE utf8_bin NOT NULL,
+  `boot_type` char(20) COLLATE utf8_bin NOT NULL,
+  `boot_size` char(20) COLLATE utf8_bin NOT NULL,
+  `app_size` char(20) COLLATE utf8_bin NOT NULL,
+  `build_note` char(255) COLLATE utf8_bin NOT NULL,
 
-  `who` char(64) COLLATE utf8_bin NOT NULL,
-  `remote_ip` char(15) COLLATE utf8_bin NOT NULL DEFAULT '127.0.0.2',
+  `user_name` char(64) COLLATE utf8_bin NOT NULL,
+  `user_ip` char(15) COLLATE utf8_bin NOT NULL DEFAULT '0.0.0.0',
 
   `status` char(20) COLLATE utf8_bin NOT NULL,
-  `err_code` int(4)  NOT NULL,
+  `err_brief` char(255) COLLATE utf8_bin NOT NULL,
   `commit_time` datetime DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `finsh_time` datetime DEFAULT NULL,
-  `file_url` char(255) COLLATE utf8_bin NOT NULL,
-  UNIQUE KEY `buildid` (`buildid`)
+  `out_zip_url` char(255) COLLATE utf8_bin NOT NULL,
+  `err_log_url` char(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
 

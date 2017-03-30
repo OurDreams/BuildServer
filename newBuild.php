@@ -19,8 +19,8 @@
 
     //todo: 先查询数据库是否有重复记录
     // $sql="select * from student_information where studentid = '$studentid'";
-    // $query = mysql_query($sql);
-    // $rows = mysql_num_rows($query);
+    // $query = mysqli_query($sql);
+    // $rows = mysqli_num_rows($query);
 
 	//验证填写信息是否合乎规范
     if (empty($svn_url)||empty($svn_version)||empty($show_version)||empty($bsp_version)||empty($os_version)||empty($meter_version)) {
@@ -51,23 +51,29 @@
 
         require_once('config.php');
         //连库
-        $con=mysql_connect(HOST, USERNAME, PASSWORD);
+        $con=mysqli_connect(HOST, USERNAME, PASSWORD);
     
         //选库
-        mysql_select_db('buildserver');
+        mysqli_select_db($con, 'buildserver');
 
         //字符集
-        //mysql_query('set names utf8_bin');
-        // mysql_query("SET NAMES GB2312");     
+        //mysqli_query('set names utf8_bin');
+        // mysqli_query("SET NAMES GB2312");     
 
-        $insertsql= "insert into build_information(svn_url,svn_version,release_version,show_version,bsp_version,os_version,meter_version,oem,brief,who,remote_ip,commit_time)values(
-            '$svn_url','$svn_version','$release_version','$show_version','$bsp_version','$os_version','$meter_version','$oem','$brief','$who','$remote_ip','$timenow')";
+        $insertsql= "INSERT INTO build_information(svn_url,svn_ver,release_ver,show_ver,
+                                                    bsp_ver,kernel_ver,meter_ver,oem_ver,build_note,
+                                                    user_name,user_ip,commit_time)
+                     VALUES('$svn_url','$svn_version','$release_version','$show_version','$bsp_version',
+                            '$os_version','$meter_version','$oem','$brief','$who','$remote_ip','$timenow')";
         //插入数据库
-        if(!(mysql_query($insertsql))){
-            echo mysql_error();
-        }else{
+        if(!(mysqli_query($con, $insertsql)))
+        {
+            echo mysqli_error($con);
+        }
+        else
+        {
             echo "<script>alert('申请成功！查看状况');window.location.href='index.php'</script>";
         }
-        mysql_close($con); 
+        mysqli_close($con); 
     } 
 ?>
