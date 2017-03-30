@@ -60,11 +60,12 @@
         //mysqli_query('set names utf8_bin');
         // mysqli_query("SET NAMES GB2312");     
 
-        $insertsql= "INSERT INTO build_information(svn_url,svn_ver,release_ver,show_ver,
-                                                    bsp_ver,kernel_ver,meter_ver,oem_ver,build_note,
-                                                    user_name,user_ip,commit_time)
-                     VALUES('$svn_url','$svn_version','$release_version','$show_version','$bsp_version',
-                            '$os_version','$meter_version','$oem','$brief','$who','$remote_ip','$timenow')";
+        $insertsql= "INSERT INTO build_information(svn_url, svn_ver, release_ver, show_ver, 
+                                                    bsp_ver, kernel_ver, meter_ver, oem_ver, build_note, 
+                                                    user_name, user_ip, commit_time, status)
+                     VALUES('$svn_url', '$svn_version', '$release_version', '$show_version', 
+                            '$bsp_version', '$os_version', '$meter_version', '$oem', '$brief',
+                            '$who', '$remote_ip', '$timenow', 'waiting')";
         //插入数据库
         if(!(mysqli_query($con, $insertsql)))
         {

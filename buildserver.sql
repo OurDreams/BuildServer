@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `build_information` (
   `kernel_ver` char(20) COLLATE utf8_bin NOT NULL,
   `meter_ver` char(20) COLLATE utf8_bin NOT NULL,
   `oem_ver` char(20) COLLATE utf8_bin NOT NULL,
-  `boot_type` char(20) COLLATE utf8_bin NOT NULL,
+  `boot_type` char(64) COLLATE utf8_bin NOT NULL,
   `boot_size` char(20) COLLATE utf8_bin NOT NULL,
   `app_size` char(20) COLLATE utf8_bin NOT NULL,
   `build_note` char(255) COLLATE utf8_bin NOT NULL,
