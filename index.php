@@ -16,6 +16,7 @@
     <?php
         require_once('config.php');
         $link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
+        mysqli_set_charset($link, "utf8");
         if ($link)
         {
             mysqli_select_db($link, 'buildserver');//选库
@@ -32,15 +33,17 @@
                 echo "<tr><th>序号</th><th>SVN地址</th><th>SVN版本号</th>
                           <th>归档版本号</th><th>信息</th><th>申请人</th>
                           <th>申请时间</th><th>当前状态</th>
-                          <th>归档包下载</th><th>错误信息下载</th>
+                          <th>归档包</th><th>errlog</th>
                       </tr>"; 
                 while($row = mysqli_fetch_row($rs)) 
                 {
-                    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td>
-                              <td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
-                              <td>$row[6]</td><td>$row[7]</td><td><a href=$row[8]>$row[8]</a></td>
-                              <td><a href=$row[9]>$row[9]</a></td>
-                          </tr>";
+                    echo "<tr>
+                            <td>$row[0]</td><td>$row[1]</td><td>$row[2]</td>
+                            <td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
+                            <td>$row[6]</td><td>$row[7]</td>";
+                    echo $row[8] ? "<td><a href=$row[8]>下载</a></td>" : "<td></td>";
+                    echo $row[9] ? "<td><a href=$row[9]>查看</a></td>" : "<td></td>";
+                    echo "</tr>";
                 }
                 echo "</table>";
             }

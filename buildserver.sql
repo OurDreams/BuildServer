@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- 表的结构 `student_information`
 --
--- insert into buildlist(svn_url,svn_version,show_version,bsp_version,os_version,meter_version,oem,time
+-- insert into buildlist(svn_url,svn_ver,show_version,bsp_ver,kernel_ver,meter_ver,oem_ver,time
 CREATE TABLE IF NOT EXISTS `build_information` (
   `build_id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE KEY,
   `svn_url` char(255) COLLATE utf8_bin NOT NULL,

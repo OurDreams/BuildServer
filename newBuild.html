@@ -3,31 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>申请编译</title>
-    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/zui.css" media="screen" type="text/css"/>
+    <!--<link rel="stylesheet/less" type="text/css" href="css/styles.less">-->
 </head>
 
 <body> 
-    <div class="container">  
-        <form name="form1"  id="contact" method="post" action="newBuild.php">
-            <h3>SP4编译服务器</h3>
-            <h4>请填写相关信息，服务器会自动从svn下载源码进行编译！</h4>
+    <div style="max-width: 600px; margin: auto;">  
+        <form name="form1" method="post" action="newBuild.php">
+            <h1 style="text-align: center">SP4编译服务器</h1>
+            <h4 style="text-align: center">请填写相关信息，服务器会自动从svn下载源码进行编译！</h4>
 
-            <input type="url" name="svn_url" required="required" placeholder ="SVN地址"/>
-            <input type="text" name="svn_version" required="required" placeholder ="SVN版本号"/>
-            <input type="text" name="release_version" required="required" placeholder ="归档版本号（例如C.SX4622T.HN.1518.9211.β4）"/>
-            <input type="text" name="show_version" required="required" placeholder ="显示版本(5字符，例如CV.03)"/>
-            <input type="text" name="bsp_version" required="required" placeholder ="BSP硬件版本(7字符，例如3.4.0.3)"/>
-            <input type="text" name="os_version" required="required" placeholder ="内核版本（ASCII码，5字符，例如1.0.9）"/>
-            <input type="text" name="meter_version" required="required" placeholder ="计量版本（2字节,十六进制）,通过shell->vm命令查看"/>
-            <input type="text" name="oem" placeholder ="OEM信息（4字节，首字母表示,如上海联能SHLN）"/>
-            <input type="text" name="brief" required="required" placeholder ="申请原因"/>
-            <input type="text" name="who" required="required" placeholder ="您的姓名"/>
+            <div class="input-group">
+                <label class="input-group-addon">SVN</label>
+                <input type="url" class="form-control" style="width: 100%" name="svn_url" required placeholder ="SVN地址"/>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <input type="text" class="form-control" style="width: 100%" name="svn_ver" required placeholder ="SVN版本号"/>
+            </div>
 
-            <input name="verification" type="text" required="required" placeholder ="输入验证码"/>
-            <img name="validate" onclick="validate.src+='?' + Math.random();" src="verification.php"  alt="点击刷新">
+            <div class="input-group" style="width: 100%">
+                <label class="input-group-addon">归档版本号</label>
+                <input type="text" class="form-control" name="release_ver" required placeholder ="（例如:C.SX4622T.HN.1518.9211.β4）"/>
+            </div>
 
-            <button type="submit" class="btn btn-primary">提交申请</button>
+            <div class="input-group">
+                <label class="input-group-addon">产品类型</label>
+                <select name="product_type" class="form-control">
+                    <option value="A">国网I型专变</option>
+                    <option value="B">国网Ⅱ型专变</option>
+                    <option value="C" selected>国网Ⅲ型专变</option>
+                </select>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">地区</label>
+                <select name="product_aera" class="form-control">
+                    <option value="A">B北京</option>
+                    <option value="B">S上海</option>
+                    <option value="C">T天津</option>
+                    <option value="D">C重庆</option>
+                    <option value="E">L辽宁</option>
+                    <option value="F">H河北</option>
+                    <option value="G">S山西</option>
+                    <option value="H">S陕西</option>
+                    <option value="I">G甘肃</option>
+                    <option value="J">Q青海</option>
+                    <option value="K">S山东</option>
+                    <option value="L">A安徽</option>
+                    <option value="M">J江苏</option>
+                    <option value="N">Z浙江</option>
+                    <option value="O">H河南</option>
+                    <option value="P">H湖北</option>
+                    <option value="Q">H湖南</option>
+                    <option value="R">J江西</option>
+                    <option value="S">F福建</option>
+                    <option value="T">S四川</option>
+                    <option value="U">J吉林</option>
+                    <option value="V">J冀北</option>
+                    <option value="W">X新疆</option>
+                    <option value="X">X西藏</option>
+                    <option value="Y">N宁夏</option>
+                    <option value="Z">H黑龙江</option>
+                    <option value="a">H海南</option>
+                    <option value="b">Y云南</option>
+                    <option value="c">G广西</option>
+                    <option value="d">G贵州</option>
+                    <option value="e">G广东</option>
+                    <option value="f">G广州</option>
+                    <option value="g">S深圳</option>
+                    <option value="h">G广西水电</option>
+                    <option value="i">N内蒙古</option>
+                    <option value="j">S陕西地电</option>
+                    <option value="z">T通用</option>
+                </select>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">当前版本</label>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <input type="text" class="form-control" name="show_ver" required placeholder ="(例如：03，建议与归档版本一致）"/>
+            </div>
 
+            <div class="input-group">
+                <label class="input-group-addon">bsp类型</label>
+                </select>
+                <select name="bsp_type" class="form-control">
+                    <option value="1">I型集中器</option>
+                    <option value="2">II型集中器</option>
+                    <option value="3" selected>III型专变</option>
+                </select>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">平台类型</label>
+                <select name="platform" class="form-control">
+                    <option value="4">SP41</option>
+                </select>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">bsp版本</label>
+                <select name="bsp_ver" class="form-control">
+                    <option value="0.3">0.3</option>
+                </select>
+            </div>
+
+            <div class="input-group" style="width: 100%">
+                <label class="input-group-addon">内核版本</label>
+                <input type="text" class="form-control" name="kernel_ver" required placeholder ="（ASCII码，5字符，例如1.0.9）"/>
+            </div>
+            <div class="input-group" style="width: 100%">
+                <label class="input-group-addon">计量版本</label>
+                <input type="text" class="form-control" name="meter_ver" required placeholder ="（2字节,十六进制,通过shell->vm命令查看）"/>
+            </div>
+            <div class="input-group" style="width: 100%">
+                <label class="input-group-addon">oem信息</label>
+                <input type="text" class="form-control" name="oem_ver" placeholder ="（4字节，首字母表示,如上海联能SHLN）"/>
+            </div>
+
+            <div class="input-group">
+                <label class="input-group-addon">boot类型</label>
+                <select name="boot_type" class="form-control">
+                    <option value="./boot/boot(DJGL_4_0_3).bin">DJGL_4_0_3</option>
+                    <option value="./boot/boot(DJGL_4_1_3).bin">DJGL_4_1_3</option>
+                    <option value="./boot/boot(FKGA23_4_0_3).bin" selected>FKGA23_4_0_3</option>
+                </select>
+
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">boot空间</label>
+                <select name="boot_size" class="form-control">
+                    <option value="0x8000" selected>32K</option>
+                    <option value="0x10000">64K</option>
+                </select>
+
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <label class="input-group-addon">app空间</label>
+                <select name="app_size" class="form-control">
+                    <option value="0xf8000">992K</option>
+                    <option value="0xb8000" selected>736K</option>
+                    <option value="0x7f800">510K</option>
+                </select>
+            </div>
+
+            <div class="input-group" style="width: 100%">
+                <label class="input-group-addon">备注</label>
+                <input type="text" class="form-control" name="build_note" required/>
+            </div>
+
+            <div class="input-group">
+                <input name="verification" class="form-control" type="text" required placeholder ="输入验证码"/>
+                <span class="input-group-addon fix-border fix-padding"></span>
+                <img name="validate" class="form-control" onclick="validate.src+='?' + Math.random();" src="verification.php"  alt="点击刷新">
+            </div>
+
+            <div display=block style="background-color:#eeeeee; line-height: 100%;">
+                <p style="font-weight:bold;">请确认：</p>
+                <p>在源文件prdcfg.h中包含INCLUDE_FLASH_TEST， 并且有如下代码：</p>
+                <p>#ifdef INCLUDE_FLASH_TEST<p/>
+                <p>#define RTU_FLASH_TESTING                 1  /*是否支持flash测试*/<p/>
+                <p>#else<p/>
+                <p>#define RTU_FLASH_TESTING                 0  /*是否支持flash测试*/<p/>
+                <p>#endif</code>
+                <p style="font-size: 15px; color: red; font-weight:bold;">否则"Flash寿命测试的U盘升级文件"中的升级文件无Flash寿命测试功能。</p>
+            </div>
+                    
+            <button type="submit" class="btn btn-primary" style="width: 100%">提交申请</button> 
         </form>
     </div>
 

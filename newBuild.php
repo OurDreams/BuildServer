@@ -5,15 +5,17 @@
     //print_r($_POST);
 
     $svn_url=$_POST["svn_url"];
-    $svn_version=$_POST['svn_version'];
-    $release_version=$_POST['release_version'];
-    $show_version=$_POST['show_version'];
-    $bsp_version=$_POST['bsp_version'];
-    $os_version=$_POST["os_version"];
-    $meter_version=$_POST['meter_version'];
-    $oem=$_POST["oem"];
-    $brief=$_POST["brief"];
-    $who=$_POST["who"];
+    $svn_ver=$_POST['svn_ver'];
+    $release_ver=$_POST['release_ver'];
+    $show_ver=$_POST['product_type'].$_POST['product_aera'].'.'.$_POST['show_ver'];
+    $bsp_ver=$_POST['bsp_type'].'.'.$_POST['platform'].'.'.$_POST['bsp_ver'];
+    $kernel_ver=$_POST["kernel_ver"];
+    $meter_ver=$_POST['meter_ver'];
+    $oem_ver=$_POST["oem_ver"];
+    $boot_type = $_POST['boot_type'];
+    $boot_size = $_POST['boot_size'];
+    $app_size = $_POST['app_size'];
+    $build_note=$_POST["build_note"];
     $remote_ip = $_SERVER["REMOTE_ADDR"];
     $timenow = date('Y-m-d H:i:s');//获取时间作为申请时间
 
@@ -23,7 +25,7 @@
     // $rows = mysqli_num_rows($query);
 
 	//验证填写信息是否合乎规范
-    if (empty($svn_url)||empty($svn_version)||empty($show_version)||empty($bsp_version)||empty($os_version)||empty($meter_version)) {
+    if (empty($svn_url)||empty($svn_ver)||empty($show_ver)||empty($bsp_ver)||empty($kernel_ver)||empty($meter_ver)) {
 	    echo "<script>alert('信息不能为空！重新填写');window.location.href='newBuild.html'</script>";
     // }elseif ((strlen($svn_url) < 4)||(!preg_match('/^\w+$/i', $svn_url))) {
     //     echo "<script>alert('用户名至少4位且不含非法字符！重新填写');window.location.href='newBuild.html'</script>";
@@ -50,22 +52,18 @@
     } else{
 
         require_once('config.php');
-        //连库
-        $con=mysqli_connect(HOST, USERNAME, PASSWORD);
-    
-        //选库
-        mysqli_select_db($con, 'buildserver');
-
-        //字符集
-        //mysqli_query('set names utf8_bin');
-        // mysqli_query("SET NAMES GB2312");     
-
+        
+        $con=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
+        mysqli_set_charset($con, "utf8");
+        mysqli_select_db($con, 'buildserver');//选库
         $insertsql= "INSERT INTO build_information(svn_url, svn_ver, release_ver, show_ver, 
-                                                    bsp_ver, kernel_ver, meter_ver, oem_ver, build_note, 
-                                                    user_name, user_ip, commit_time, status)
-                     VALUES('$svn_url', '$svn_version', '$release_version', '$show_version', 
-                            '$bsp_version', '$os_version', '$meter_version', '$oem', '$brief',
-                            '$who', '$remote_ip', '$timenow', 'waiting')";
+                                                    bsp_ver, kernel_ver, meter_ver, oem_ver, 
+                                                    boot_type, boot_size, app_size, build_note, 
+                                                    user_ip, commit_time, status)
+                     VALUES('$svn_url', '$svn_ver', '$release_ver', '$show_ver', 
+                            '$bsp_ver', '$kernel_ver', '$meter_ver', '$oem_ver', 
+                            '$boot_type', '$boot_size','$app_size','$build_note',
+                            '$remote_ip', '$timenow', 'waiting')";
         //插入数据库
         if(!(mysqli_query($con, $insertsql)))
         {
