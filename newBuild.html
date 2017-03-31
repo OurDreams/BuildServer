@@ -1,23 +1,25 @@
 <!DOCTYPE HTML>
 <html> 
-<head>
-    <meta charset="UTF-8">
-    <title>申请编译</title>
-    <link rel="stylesheet" href="css/zui.css" media="screen" type="text/css"/>
-    <!--<link rel="stylesheet/less" type="text/css" href="css/styles.less">-->
-</head>
+<meta charset="UTF-8">
+<title>申请编译</title>
+<link rel="stylesheet" href="css/zui.css" type="text/css"/>
 
 <body> 
     <div style="max-width: 600px; margin: auto;">  
         <form name="form1" method="post" action="newBuild.php">
-            <h1 style="text-align: center">SP4编译服务器</h1>
+            <h1 style="text-align: center">编译服务器</h1>
             <h4 style="text-align: center">请填写相关信息，服务器会自动从svn下载源码进行编译！</h4>
 
-            <div class="input-group">
-                <label class="input-group-addon">SVN</label>
-                <input type="url" class="form-control" style="width: 100%" name="svn_url" required placeholder ="SVN地址"/>
-                <span class="input-group-addon fix-border fix-padding"></span>
-                <input type="text" class="form-control" style="width: 100%" name="svn_ver" required placeholder ="SVN版本号"/>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <label class="input-group-addon">SVN</label>
+                        <input type="url" class="form-control" style="width: 100%" name="svn_url" required placeholder ="SVN地址"/>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" style="width: 100%" name="svn_ver" required placeholder ="SVN版本号"/>
+                </div>
             </div>
 
             <div class="input-group" style="width: 100%">
@@ -34,45 +36,7 @@
                 </select>
                 <span class="input-group-addon fix-border fix-padding"></span>
                 <label class="input-group-addon">地区</label>
-                <select name="product_aera" class="form-control">
-                    <option value="A">B北京</option>
-                    <option value="B">S上海</option>
-                    <option value="C">T天津</option>
-                    <option value="D">C重庆</option>
-                    <option value="E">L辽宁</option>
-                    <option value="F">H河北</option>
-                    <option value="G">S山西</option>
-                    <option value="H">S陕西</option>
-                    <option value="I">G甘肃</option>
-                    <option value="J">Q青海</option>
-                    <option value="K">S山东</option>
-                    <option value="L">A安徽</option>
-                    <option value="M">J江苏</option>
-                    <option value="N">Z浙江</option>
-                    <option value="O">H河南</option>
-                    <option value="P">H湖北</option>
-                    <option value="Q">H湖南</option>
-                    <option value="R">J江西</option>
-                    <option value="S">F福建</option>
-                    <option value="T">S四川</option>
-                    <option value="U">J吉林</option>
-                    <option value="V">J冀北</option>
-                    <option value="W">X新疆</option>
-                    <option value="X">X西藏</option>
-                    <option value="Y">N宁夏</option>
-                    <option value="Z">H黑龙江</option>
-                    <option value="a">H海南</option>
-                    <option value="b">Y云南</option>
-                    <option value="c">G广西</option>
-                    <option value="d">G贵州</option>
-                    <option value="e">G广东</option>
-                    <option value="f">G广州</option>
-                    <option value="g">S深圳</option>
-                    <option value="h">G广西水电</option>
-                    <option value="i">N内蒙古</option>
-                    <option value="j">S陕西地电</option>
-                    <option value="z">T通用</option>
-                </select>
+                <input type="text" class="form-control" list="area_list" name="product_aera"/>
                 <span class="input-group-addon fix-border fix-padding"></span>
                 <label class="input-group-addon">当前版本</label>
                 <span class="input-group-addon fix-border fix-padding"></span>
@@ -160,6 +124,45 @@
                     
             <button type="submit" class="btn btn-primary" style="width: 100%">提交申请</button> 
         </form>
+        <datalist id="area_list">
+            <option value="B北京-A"/>
+            <option value="S上海-B"/>
+            <option value="T天津-C"/>
+            <option value="C重庆-D"/>
+            <option value="L辽宁-E"/>
+            <option value="H河北-F"/>
+            <option value="S山西-G"/>
+            <option value="S陕西-H"/>
+            <option value="G甘肃-I"/>
+            <option value="Q青海-J"/>
+            <option value="S山东-K"/>
+            <option value="A安徽-L"/>
+            <option value="J江苏-M"/>
+            <option value="Z浙江-N"/>
+            <option value="H河南-O"/>
+            <option value="H湖北-P"/>
+            <option value="H湖南-Q"/>
+            <option value="J江西-R"/>
+            <option value="F福建-S"/>
+            <option value="S四川-T"/>
+            <option value="J吉林-U"/>
+            <option value="J冀北-V"/>
+            <option value="X新疆-W"/>
+            <option value="X西藏-X"/>
+            <option value="N宁夏-Y"/>
+            <option value="H黑龙江-Z"/>
+            <option value="H海南-a"/>
+            <option value="Y云南-b"/>
+            <option value="G广西-c"/>
+            <option value="G贵州-d"/>
+            <option value="G广东-e"/>
+            <option value="G广州-f"/>
+            <option value="S深圳-g"/>
+            <option value="G广西水电-h"/>
+            <option value="N内蒙古-i"/>
+            <option value="S陕西地电-j"/>
+            <option value="T通用-z"/>
+        </datalist>
     </div>
 
 </body>

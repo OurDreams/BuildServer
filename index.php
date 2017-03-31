@@ -2,13 +2,13 @@
 <html> 
 <meta charset="UTF-8">
 <title>编译服务器</title>
-<link rel="stylesheet" type="css/css" href="css/myStyle.css">
+<link rel="stylesheet" href="css/zui.css" type="text/css">
 
 <body> 
-<div class="container">  
-    <body bgcolor="#d0d0d0">
+<div>  
+    <body>
     <div id="header">
-        <h1>编 译 服 务 器 信 息</h1>
+        <h1 style="text-align: center">编译服务器信息</h1>
         <a href="./newBuild.html">申请编译</a>
     </div>
 
@@ -29,15 +29,25 @@
 
             if ($rs)
             {
-                echo "<table id=\"info\" border=\"1\">"; 
-                echo "<tr><th>序号</th><th>SVN地址</th><th>SVN版本号</th>
-                          <th>归档版本号</th><th>信息</th><th>申请人</th>
-                          <th>申请时间</th><th>当前状态</th>
-                          <th>归档包</th><th>errlog</th>
-                      </tr>"; 
+    ?>
+            <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                <th>序号</th> <th>SVN地址</th> <th>SVN版本号</th> <th>归档版本号</th>
+                <th>信息</th> <th>申请人</th> <th>申请时间</th> <th>当前状态</th>
+                <th>归档包</th> <th>errlog</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <?php
                 while($row = mysqli_fetch_row($rs)) 
                 {
-                    echo "<tr>
+                    if ($row[7] == "waiting") $row_class = "";
+                    elseif ($row[7] == "ok") $row_class = "class=\"success\"";
+                    elseif (strstr($row[7],"err")) $row_class = "class=\"danger\"";
+                    else $row_class = "class=\"active\"";
+                    echo "<tr $row_class>
                             <td>$row[0]</td><td>$row[1]</td><td>$row[2]</td>
                             <td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
                             <td>$row[6]</td><td>$row[7]</td>";
