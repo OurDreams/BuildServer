@@ -2,14 +2,19 @@
 <html> 
 <meta charset="UTF-8">
 <title>编译服务器</title>
-<link rel="stylesheet" href="css/zui.css" type="text/css">
+<link rel="stylesheet" href="zui/dist/css/zui.css" type="text/css">
+
+<script type="text/javascript" src="zui/assets/jquery.js"></script>
+<script type="text/javascript" src="zui/dist/js/zui.js"></script>
 
 <body> 
 <div>  
     <body>
-    <div id="header">
-        <h1 style="text-align: center">编译服务器信息</h1>
-        <a href="./newBuild.html">申请编译</a>
+    <div class="row", style="text-align: center">
+        <label style="font-size: 26px">编译服务器信息</label>
+        <button type="button" class="btn btn-mini btn-danger" style="margin-left: 10px; margin-bottom: 5px" 
+            data-moveable="true" data-position="0px" data-title="请填写相关信息，服务器会自动从svn下载源码进行编译" 
+            data-toggle="modal" data-remote="./newBuild.html">申请编译</button>
     </div>
 
     <div id="main">
