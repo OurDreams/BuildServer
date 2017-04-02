@@ -139,17 +139,30 @@
 
                 $t.find('thead > tr:first').children('th').each(function() {
                     $th = $(this);
-                    cols.push($.extend({
-                        text: $th.html(),
-                        flex: false || $th.hasClass('flex-col'),
-                        width: 'auto',
-                        cssClass: $th.attr('class'),
-                        css: $th.attr('style'),
-                        type: 'string',
-                        ignore: $th.hasClass('ignore'),
-                        sort: !$th.hasClass('sort-disabled'),
-                        mergeRows: $th.attr('merge-rows')
-                    }, $th.data()));
+                    // cols.push($.extend({
+                    //     text: $th.html(),
+                    //     flex: false || $th.hasClass('flex-col'),
+                    //     width: 'auto',
+                    //     cssClass: $th.attr('class'),
+                    //     css: $th.attr('style'),
+                    //     type: 'string',
+                    //     ignore: $th.hasClass('ignore'),
+                    //     sort: !$th.hasClass('sort-disabled'),
+                    //     mergeRows: $th.attr('merge-rows')
+                    // }, $th.data()));
+                    $th = $(this);  
+                    cols.push($.extend(  
+                    {  
+                        text: $th.html(),  
+                        flex: false || $th.hasClass('flex-col'),  
+                        width: 'auto',  
+                        cssClass: $th.attr('class'),  
+                        colClass: $th.attr('class'),  
+                        css: $th.attr('style'),  
+                        type: 'string',  
+                        ignore: $th.hasClass('ignore'),  
+                        sort: !$th.hasClass('sort-disabled')  
+                    }, $th.data()));  
                 });
 
                 $t.find('tbody > tr').each(function() {
@@ -165,13 +178,14 @@
                     $tr.children('td').each(function() {
                         $td = $(this);
                         colSpan = $td.attr('colspan') || 1;
-                        row.data.push($.extend({
-                            cssClass: $td.attr('class'),
-                            css: $td.attr('style'),
-                            text: $td.html(),
-                            colSpan: colSpan,
-                            title: $td.attr('title')
-                        }, $td.data()));
+                        // row.data.push($.extend({
+                        //     cssClass: $td.attr('class'),
+                        //     css: $td.attr('style'),
+                        //     text: $td.html(),
+                        //     colSpan: colSpan,
+                        //     title: $td.attr('title')
+                        // }, $td.data()));
+                        row.data.push($td.html());
 
                         if(colSpan > 1) {
                             for(i = 1; i < colSpan; i++) {
