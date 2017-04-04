@@ -2,6 +2,9 @@
 <html> 
 <meta charset="UTF-8">
 <title>编译服务器</title>
+<link rel="bookmark" type="image/x-icon" href="favicon.ico"/>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="icon" href="favicon.ico">
 <link href="zui/dist/css/zui.css" rel="stylesheet">
 <link href="zui/dist/lib/datatable/zui.datatable.css" rel="stylesheet">
 <script type="text/javascript" src="zui/assets/jquery.js"></script>
