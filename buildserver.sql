@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `build_information` (
   `user_ip` char(15) COLLATE utf8_bin NOT NULL DEFAULT '0.0.0.0',
 
   `status` char(20) COLLATE utf8_bin NOT NULL,
-  `err_brief` char(255) COLLATE utf8_bin NOT NULL,
+  `err_count` int(3) UNSIGNED NOT NULL DEFAULT '0',
   `commit_time` datetime DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `finsh_time` datetime DEFAULT NULL,

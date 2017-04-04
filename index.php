@@ -36,19 +36,19 @@
             if ($rs)
             {
     ?>
-            <table class="table datatable table-striped table-condensed">
+            <table style="margin: auto; text-align: center" class="table datatable table-striped table-condensed table-hover table-auto">
             <thead>
                 <tr>
-                <th data-width='4%' data-type='number'>ID</th>
-                <th data-width='25%' data-sort='false'>SVN地址</th>
-                <th data-width='4%' data-sort='false'>SVN版本号</th>
-                <th data-width='17%' data-sort='true'>归档版本号</th>
-                <th data-sort='false'>信息</th>
-                <th data-width='6%' data-sort='true'>申请人</th>
-                <th data-width='13%' data-type='date'>申请时间</th>
-                <th data-width='5%'>当前状态</th>
-                <th data-width='4%' data-sort='false'>归档包</th>
-                <th data-width='4%' data-sort='false'>errlog</th>
+                <th style="text-align: center" data-width='4%' data-type='number'>ID</th>
+                <th style="text-align: center" data-width='25%' data-sort='false'>SVN地址</th>
+                <th style="text-align: center" data-width='6%' data-sort='false'>SVN版本号</th>
+                <th style="text-align: center" data-width='17%' data-sort='true'>归档版本号</th>
+                <th style="text-align: center" data-sort='false'>备注</th>
+                <th style="text-align: center" data-width='6%' data-sort='true'>申请人</th>
+                <th style="text-align: center" data-width='13%' data-type='date'>申请时间</th>
+                <th style="text-align: center" data-width='5%'>当前状态</th>
+                <th style="text-align: center" data-width='4%' data-sort='false'>归档包</th>
+                <th style="text-align: center" data-width='4%' data-sort='false'>errlog</th>
                 </tr>
             </thead>
 
@@ -70,7 +70,7 @@
                 }
                 echo "</tbody>";
                 echo "</table>";
-                echo "<script>$('table.datatable').datatable({sortable: true, fixedHeader: true, colHover: true});</script>";
+                // echo "<script>$('table.datatable').datatable({sortable: false, fixedHeader: true, colHover: true});</script>";
             }
             else
             {
