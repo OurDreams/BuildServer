@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="UTF-8">
+<title>编译服务器</title>
+<link href="zui/dist/css/zui.css" rel="stylesheet">
+<link href="zui/chosen-select.css" rel="stylesheet">
+
+<script src="zui/assets/jquery.js"></script>
+<script src="zui/dist/js/zui.js"></script>
+<script src="zui/src/js/chosen.js"></script>
+<script>
+$(function()
+{
+$('.chosen-select').chosen();
+})
+</script>
+
+<body>
+<!-- HTML 代码 -->
+<div class="example">
+  <div class="row">
+    <div class="col-md-6">
+      <select data-placeholder="选择一个宠物..." class="chosen-select form-control" tabindex="2">
+        <option value=""></option>
+        <option value="cat">小猫</option>
+        <option value="fish">金鱼</option>
+        <option value="dragon">龙</option>
+        <option value="mammoth">猛犸</option>
+        <option value="gollum">咕噜</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <select data-placeholder="选择一些爱吃的水果..." class="chosen-select form-control" tabindex="2" multiple="">
+        <option value="strawberries">草莓</option>
+        <option value="apple">苹果</option>
+        <option value="orange">橙子</option>
+        <option value="cherry">樱桃</option>
+        <option value="banana">香蕉</option>
+        <option value="figs">无花果</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+  <body/>

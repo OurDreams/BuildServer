@@ -7,7 +7,7 @@
     $svn_url=$_POST["svn_url"];
     $svn_ver=$_POST['svn_ver'];
     $release_ver=$_POST['release_ver'];
-    $show_ver=$_POST['product_type'].substr($_POST['product_aera'], -1).'.'.$_POST['show_ver'];
+    $show_ver=$_POST['product_type'].$_POST['product_aera'].'.'.$_POST['show_ver'];
     $bsp_ver=$_POST['bsp_type'].'.'.$_POST['platform'].'.'.$_POST['bsp_ver'];
     $kernel_ver=$_POST["kernel_ver"];
     $meter_ver=$_POST['meter_ver'];
