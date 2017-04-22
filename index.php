@@ -66,7 +66,7 @@
                     elseif (strstr($row[7],"err")) $row_class = "class=\"danger\"";
                     else $row_class = "class=\"active\"";
                     echo "<tr>
-                            <td>$row[0]</td><td>$row[1]</td><td>$row[2]</td>
+                            <td>$row[0]</td><td style=\"word-wrap:break-word;\">$row[1]</td><td>$row[2]</td>
                             <td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
                             <td>$row[6]</td><td>$row[7]</td>";
                     echo $row[8] ? "<td><a href=$row[8]>下载</a></td>" : "<td></td>";
