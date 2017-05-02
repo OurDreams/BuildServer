@@ -16,9 +16,6 @@
     <body>
     <div class="row", style="text-align: center">
         <label style="font-size: 26px">编译服务器信息</label>
-        <!--<button type="button" class="btn btn-mini btn-danger" style="margin-left: 10px; margin-bottom: 5px" 
-            data-moveable="true" data-position="" data-title="请填写相关信息，服务器会自动从svn下载源码进行编译" 
-            data-toggle="modal" data-remote="./newBuild.html">申请编译</button>-->
         <button type="button" class="btn btn-mini btn-danger" style="margin-left: 10px; margin-bottom: 5px" 
             onclick="location='./newBuild.html'">申请编译</button>
     </div>
@@ -35,7 +32,7 @@
             $q = "SELECT build_id,svn_url,svn_ver,release_ver,
                          build_note,user_name,commit_time,status,
                          out_zip_url, err_log_url
-                  FROM build_information";
+                  FROM build_information ORDER BY build_id DESC";
             $rs = mysqli_query($link, $q); 
 
             if ($rs)

@@ -156,9 +156,9 @@
           <div class="input-group">
             <label class="input-group-addon">boot类型</label>
             <select name="boot_type" class="form-control">
-                            <option value="./boot/boot(DJGL_4_0_3).bin">DJGL_4_0_3</option>
-                            <option value="./boot/boot(DJGL_4_1_3).bin">DJGL_4_1_3</option>
-                            <option value="./boot/boot(FKGA23_4_0_3).bin" selected>FKGA23_4_0_3</option>
+                            <option value="boot(DJGL_4_0_3).bin">DJGL_4_0_3</option>
+                            <option value="boot(DJGL_4_1_3).bin">DJGL_4_1_3</option>
+                            <option value="boot(FKGA23_4_0_3).bin" selected>FKGA23_4_0_3</option>
                         </select>
           </div>
         </div>
@@ -227,9 +227,9 @@
                 <script>
                   $("#readcheckbox").change(function() {
                     if ($("#readcheckbox").is(':checked')) {
-                      $("#submitbtn").attr("class", "btn btn-primary")
+                      $("#submitbtn").attr("class", "btn btn-primary");
                     } else {
-                      $("#submitbtn").attr("class", "btn btn-primary disabled")
+                      $("#submitbtn").attr("class", "btn btn-primary disabled");
                     }
                   })
                 </script>
