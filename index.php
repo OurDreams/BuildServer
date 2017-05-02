@@ -1,91 +1,116 @@
 <!DOCTYPE HTML>
-<html> 
+<html>
 <meta charset="UTF-8">
 <title>编译服务器</title>
-<link rel="bookmark" type="image/x-icon" href="favicon.ico"/>
+<link rel="bookmark" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="icon" href="favicon.ico">
-<link href="zui/dist/css/zui.css" rel="stylesheet">
-<link href="zui/dist/lib/datatable/zui.datatable.css" rel="stylesheet">
-<script type="text/javascript" src="zui/assets/jquery.js"></script>
-<script type="text/javascript" src="zui/dist/js/zui.js"></script>
-<script type="text/javascript" src="zui/src/js/datatable.js"></script>
 
-<body> 
-<div>  
-    <body>
-    <div class="row", style="text-align: center">
-        <label style="font-size: 26px">编译服务器信息</label>
-        <button type="button" class="btn btn-mini btn-danger" style="margin-left: 10px; margin-bottom: 5px" 
-            onclick="location='./newBuild.html'">申请编译</button>
-    </div>
+<link href="css/bootstrap.css" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
 
-    <div id="main">
-    <?php
-        require_once('config.php');
-        $link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
-        mysqli_set_charset($link, "utf8");
-        if ($link)
-        {
-            mysqli_select_db($link, 'buildserver');//选库
-            mysqli_query($link, 'set names utf8_bin');//字符集
-            $q = "SELECT build_id,svn_url,svn_ver,release_ver,
-                         build_note,user_name,commit_time,status,
-                         out_zip_url, err_log_url
-                  FROM build_information ORDER BY build_id DESC";
-            $rs = mysqli_query($link, $q); 
+<!--footable-->
+<link href="css/footable.bootstrap.css" rel="stylesheet">
+<script src="js/footable.js"></script>
 
-            if ($rs)
-            {
+<style>
+    h1
+    {
+        font-size: 32px;
+        text-align: center;
+        font-family: 微软雅黑;
+    }
+</style>
+<body>
+    <h1>编译服务器信息
+        <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild.html'">申请编译</button>
+    </h1>
+    <div class="container">
+<?php
+require_once('config.php');
+$link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
+mysqli_set_charset($link, "utf8");
+mysqli_select_db($link, 'buildserver');//选库
+mysqli_query($link, 'set names utf8_bin');//字符集
+$q = "SELECT build_id,svn_url,svn_ver,release_ver,
+build_note,user_name,commit_time,status,
+out_zip_url, err_log_url
+FROM build_information ORDER BY build_id DESC";
+$rs = mysqli_query($link, $q);
+
+if ($rs)
+{
     ?>
-            <table style="margin: auto; text-align: center" class="table datatable table-striped table-condensed table-hover table-auto">
-            <thead>
-                <tr>
-                <th style="text-align: center" data-width='4%' data-type='number'>ID</th>
-                <th style="text-align: center" data-width='25%' data-sort='false'>SVN地址</th>
-                <th style="text-align: center" data-width='6%' data-sort='false'>SVN版本号</th>
-                <th style="text-align: center" data-width='17%' data-sort='true'>归档版本号</th>
-                <th style="text-align: center" data-sort='false'>备注</th>
-                <th style="text-align: center" data-width='6%' data-sort='true'>申请人</th>
-                <th style="text-align: center" data-width='13%' data-type='date'>申请时间</th>
-                <th style="text-align: center" data-width='5%'>当前状态</th>
-                <th style="text-align: center" data-width='4%' data-sort='false'>归档包</th>
-                <th style="text-align: center" data-width='4%' data-sort='false'>errlog</th>
-                </tr>
-            </thead>
+    <table class="table table-striped table-hover" data-show-toggle="true" data-expand-first="false">
+        <thead>
+            <tr>
+                <th data-sortable="false"></th>
+                <th data-type="number">ID</th>
+                <th data-breakpoints="md">SVN地址</th>
+                <th>SVN版本号</th>
+                <th>归档版本号</th>
+                <th>备注</th>
+                <th>申请人</th>
+                <th data-type="date">申请时间</th>
+                <th data-breakpoints="all" data-title="当前状态">当前状态</th>
+                <th>归档包</th>
+                <th>errlog</th>
+            </tr>
+        </thead>
 
-            <tbody>
-            <?php
-                while($row = mysqli_fetch_row($rs)) 
-                {
-                    if ($row[7] == "waiting") $row_class = "";
-                    elseif ($row[7] == "ok") $row_class = "class=\"success\"";
-                    elseif (strstr($row[7],"err")) $row_class = "class=\"danger\"";
-                    else $row_class = "class=\"active\"";
-                    echo "<tr>
-                            <td>$row[0]</td><td style=\"word-wrap:break-word;\">$row[1]</td><td>$row[2]</td>
-                            <td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
-                            <td>$row[6]</td><td>$row[7]</td>";
-                    echo $row[8] ? "<td><a href=$row[8]>下载</a></td>" : "<td></td>";
-                    echo $row[9] ? "<td><a data-show-header=\"false\" data-height='400px' data-iframe=$row[9] data-toggle=\"modal\">查看</a></td>" : "<td></td>";
-                    echo "</tr>";
-                }
-                echo "</tbody>";
-                echo "</table>";
-                // echo "<script>$('table.datatable').datatable({sortable: false, fixedHeader: true, colHover: true});</script>";
-            }
-            else
-            {
-                die("Valid result!");
-            }
-            mysqli_close($link); 
-        } 
-        else 
+        <tbody>
+        <?php
+        while($row = mysqli_fetch_array($rs))
         {
-            echo('connect database faild!');
+        ?>
+            <tr>
+                <td> </td>
+                <td><?php echo $row['build_id'];?></td>
+                <td><?php echo $row['svn_url'];?></td>
+                <td><?php echo $row['svn_ver'];?></td>
+                <td><?php echo $row['release_ver'];?></td>
+                <td><?php echo $row['build_note'];?></td>
+                <td><?php echo $row['user_name'];?></td>
+                <td><?php echo $row['commit_time'];?></td>
+                <td><?php echo $row['status'];?></td>
+                <td><?php if ($row[8]) echo "<a href=$row[8]>下载</a>";?></td>
+                <td><?php if ($row[9]) echo "<a data-show-header=\"false\" data-height='400px' data-iframe=$row[9] data-toggle=\"modal\">查看</a>";?></td>
+            </tr>
+        <?php
         }
-    ?> 
+        ?>
+        </tbody>
+    </table>
+    <script>
+    jQuery(function($){
+        $('.table').footable({
+            "filtering": {
+                "enabled": true,
+                "placeholder": "搜索",
+                "delay": -1,
+                "dropdownTitle": "搜索于：",
+                "position": "right"
+            },
+            "paging": {
+                "enabled": true,
+                "size": 15
+            },
+            "sorting": {
+                "enabled": true
+            }
+        });
+    });
+    </script>
+<?php
+}
+else
+{
+    die("无记录");
+}
+mysqli_close($link);
+?>
     </div>
-</div>
 </body>
+
 </html>
