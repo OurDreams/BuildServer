@@ -33,13 +33,9 @@ $link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
 mysqli_set_charset($link, "utf8");
 mysqli_select_db($link, 'buildserver');//选库
 mysqli_query($link, 'set names utf8_bin');//字符集
-$q = "SELECT build_id,svn_url,svn_ver,release_ver,
-build_note,user_name,commit_time,status,
-out_zip_url, err_log_url
-FROM build_information ORDER BY build_id DESC";
-$rs = mysqli_query($link, $q);
+$result = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC");
 
-if ($rs)
+if ($result)
 {
     ?>
     <table class="table table-striped table-hover" data-show-toggle="true" data-expand-first="false">
@@ -47,21 +43,26 @@ if ($rs)
             <tr>
                 <th data-sortable="false"></th>
                 <th data-type="number">ID</th>
-                <th data-breakpoints="md">SVN地址</th>
-                <th>SVN版本号</th>
+                <th data-breakpoints="all">SVN地址</th>
+                <th data-breakpoints="all">SVN版本号</th>
                 <th>归档版本号</th>
-                <th>备注</th>
+                <th data-breakpoints="all">显示版本</th>
+                <th data-breakpoints="all">BSP版本</th>
+                <th data-breakpoints="all">内核版本</th>
+                <th data-breakpoints="all">计量版本</th>
+                <th data-breakpoints="all">oem信息</th>
+                <th data-sortable="false">备注</th>
                 <th>申请人</th>
                 <th data-type="date">申请时间</th>
-                <th data-breakpoints="all" data-title="当前状态">当前状态</th>
-                <th>归档包</th>
-                <th>errlog</th>
+                <th data-sortable="false" data-title="当前状态">当前状态</th>
+                <th data-sortable="false">归档包</th>
+                <th data-sortable="false">errlog</th>
             </tr>
         </thead>
 
         <tbody>
         <?php
-        while($row = mysqli_fetch_array($rs))
+        while($row = mysqli_fetch_array($result))
         {
         ?>
             <tr>
@@ -70,13 +71,31 @@ if ($rs)
                 <td><?php echo $row['svn_url'];?></td>
                 <td><?php echo $row['svn_ver'];?></td>
                 <td><?php echo $row['release_ver'];?></td>
+                <td><?php echo $row['show_ver'];?></td>
+                <td><?php echo $row['bsp_ver'];?></td>
+                <td><?php echo $row['kernel_ver'];?></td>
+                <td><?php echo $row['meter_ver'];?></td>
+                <td><?php echo $row['oem_ver'];?></td>
                 <td><?php echo $row['build_note'];?></td>
                 <td><?php echo $row['user_name'];?></td>
                 <td><?php echo $row['commit_time'];?></td>
                 <td><?php echo $row['status'];?></td>
-                <td><?php if ($row[8]) echo "<a href=$row[8]>下载</a>";?></td>
-                <td><?php if ($row[9]) echo "<a data-show-header=\"false\" data-height='400px' data-iframe=$row[9] data-toggle=\"modal\">查看</a>";?></td>
+                <td><?php if ($row['out_zip_url']) echo "<a href=".$row['out_zip_url'].">下载</a>";?></td>
+                <td><?php if ($row['err_log_url']) echo "<a  data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";?></td>
             </tr>
+            <div class="modal fade" id="errlog<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">错误信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <iframe frameborder="0" width="100%" src="<?php echo $row['err_log_url'];?>"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php
         }
         ?>
@@ -93,11 +112,11 @@ if ($rs)
                 "position": "right"
             },
             "paging": {
-                "enabled": true,
+                "enabled": false,
                 "size": 15
             },
             "sorting": {
-                "enabled": true
+                "enabled": false
             }
         });
     });

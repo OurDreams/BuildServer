@@ -5,24 +5,36 @@
 <link rel="bookmark" type="image/x-icon" href="favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="zui/dist/css/zui.css" type="text/css" />
-<link href="zui/chosen-select.css" rel="stylesheet">
-<script src="zui/assets/jquery.js"></script>
-<script src="zui/dist/js/zui.js"></script>
-<script src="zui/src/js/chosen.js"></script>
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<!--select2-->
+<link href="css/select2.css" rel="stylesheet">
+<script src="js/select2.js"></script>
+
 <script>
   $(function() {
-    $('.chosen-select').chosen({
-      search_contains: true
+    $('.chosen-select').select2({
+        placeholder: 'Select an option'
     });
   })
 </script>
 
+<style>
+  h1, h4
+  {
+    font-family: 黑体;
+    text-align: center;
+  }
+</style>
+
 <body>
-  <div style="max-width: 700px; margin: auto;">
+  <div class="container" style="width: 70%">
+    <h1>申请编译</h1>
+    <h4>请填写相关信息，服务器会自动从svn下载源码进行编译！</h4>
     <form name="form1" method="post" action="newBuild.php">
-      <h1 style="text-align: center">申请编译</h1>
-      <h4 style="text-align: center">请填写相关信息，服务器会自动从svn下载源码进行编译！</h4>
 
       <div class="row">
         <div class="col-xs-8">
@@ -113,10 +125,10 @@
             <label class="input-group-addon">bsp类型</label>
             </select>
             <select name="bsp_type" class="form-control">
-                            <option value="1">I型集中器</option>
-                            <option value="2">II型集中器</option>
-                            <option value="3" selected>III型专变</option>
-                        </select>
+                <option value="1">I型集中器</option>
+                <option value="2">II型集中器</option>
+                <option value="3" selected>III型专变</option>
+            </select>
           </div>
         </div>
         <div class="col-xs-4">
