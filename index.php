@@ -52,7 +52,7 @@ if ($result)
                 <th data-breakpoints="all">内核版本</th>
                 <th data-breakpoints="all">计量版本</th>
                 <th data-breakpoints="all">oem信息</th>
-                <th data-sortable="false">备注</th>
+                <th data-breakpoints="all" data-sortable="false">备注</th>
                 <th>申请人</th>
                 <th data-type="date">申请时间</th>
                 <th data-sortable="false" data-title="当前状态">当前状态</th>
