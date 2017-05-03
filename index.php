@@ -15,19 +15,29 @@
 <script src="js/footable.js"></script>
 
 <style>
-    h1
-    {
-        font-size: 32px;
-        text-align: center;
-        font-family: 微软雅黑;
-    }
+h1
+{
+    font-family: 黑体;
+    font-size: 32px;
+}
+h1 small
+{
+    font-size: 50%;
+}
 </style>
 <body>
-    <h1>编译服务器信息
+    <!--<h1>编译服务器信息
         <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild.html'">申请编译</button>
         <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild1.php'">申请编译新</button>
-    </h1>
+    </h1>-->
     <div class="container">
+        <header>
+            <h1>
+                编译服务器信息
+                <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newbuild.php'">申请编译</button>
+            </h1>
+        </header>
+        <hr style="margin-bottom:0">
 <?php
 require_once('config.php');
 $link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
