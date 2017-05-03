@@ -2,9 +2,9 @@
 <html>
 <meta charset="UTF-8">
 <title>编译服务器</title>
-<link rel="bookmark" type="image/x-icon" href="favicon.ico" />
-<link rel="shortcut icon" href="favicon.ico">
-<link rel="icon" href="favicon.ico">
+<link rel="bookmark" type="image/x-icon" href="img/logo.ico" />
+<link rel="shortcut icon" href="img/logo.ico">
+<link rel="icon" href="img/logo.ico">
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
@@ -25,6 +25,7 @@
 <body>
     <h1>编译服务器信息
         <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild.html'">申请编译</button>
+        <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild1.php'">申请编译新</button>
     </h1>
     <div class="container">
 <?php

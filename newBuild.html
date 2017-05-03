@@ -2,9 +2,9 @@
 <html>
 <meta charset="UTF-8">
 <title>申请编译</title>
-<link rel="bookmark" type="image/x-icon" href="favicon.ico" />
-<link rel="shortcut icon" href="favicon.ico">
-<link rel="icon" href="favicon.ico">
+<link rel="bookmark" type="image/x-icon" href="img/logo.ico" />
+<link rel="shortcut icon" href="img/logo.ico">
+<link rel="icon" href="img/logo.ico">
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
