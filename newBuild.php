@@ -14,12 +14,34 @@
 <link href="css/select2.css" rel="stylesheet">
 <script src="js/select2.js"></script>
 
+<!--notify-->
+<link rel="stylesheet" href="css/animate.css">
+<script src="js/bootstrap-notify.js"></script>
+
 <script>
-  $(function() {
-    $('.chosen-select').select2({
-        placeholder: '请选择地区'
+var add1 = Math.random()*8 + 1;
+add1 = parseInt(add1, 10);
+var add2 = Math.random()*8 + 1;
+add2 = parseInt(add2, 10);
+$(document).ready(function(){
+    $(function() {
+        $('.chosen-select').select2({
+            placeholder: '请选择地区'
+        });
     });
-  })
+
+    $("#chklabel").html("请填写"+add1+"+"+add2+"=");
+});
+
+function chk_form()
+{
+    if(add1 + add2 != document.buildfrom.sumchk.value)
+    {
+        document.buildfrom.sumchk.focus();
+        $.notify({message: '验证码错误，请重新填写'}, {type: 'danger'});
+        return false;  
+    }
+}
 </script>
 
 <style>
@@ -43,7 +65,7 @@ h1 small
     </header>
     <hr>
 
-    <form class="form-group" name="form1" method="post" action="newbuild_action.php">
+    <form class="form-group" name="buildfrom" method="post" action="newbuild_action.php" onsubmit="return chk_form();">
         <div class="col-xs-7">
             <div class="row">
                 <div class="col-xs-9">  
@@ -101,7 +123,6 @@ h1 small
                     <div class="form-group">
                         <label>地区</label>
                         <select name="product_aera" class="form-control chosen-select">
-                            <option value=""></option>
                             <option value="A"> B北京-A </option>
                             <option value="B"> S上海-B </option>
                             <option value="C"> T天津-C </option>
@@ -246,8 +267,15 @@ h1 small
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label id="chklabel">请填写</label>
+                        <input type="text" class="form-control" name="sumchk" maxlength="3" placeholder="" required>
+                    </div>
+                </div>
+            </div>
         </div>
-
 
         <div class="col-xs-12">
             <div display=block style="background-color:#eeeeee; line-height: 80%; padding: 10px;">
@@ -270,18 +298,18 @@ h1 small
                 <script>
                 $("#readcheckbox").change(function() {
                     if ($("#readcheckbox").is(':checked')) {
-                    $("#submitbtn").attr("class", "btn btn-primary");
+                        $("#submitbtn").removeAttr("disabled");
                     } else {
-                    $("#submitbtn").attr("class", "btn btn-primary disabled");
+                        $("#submitbtn").attr("disabled", "disabled");
                     }
                 })
                 </script>
                 <div class="row">
                     <div class="col-xs-10">
-                        <button id="submitbtn" type="submit" class="btn btn-primary btn-block disabled">提交申请</button>
+                        <button id="submitbtn" type="submit" class="btn btn-primary btn-block" disabled="disabled">提交申请</button>
                     </div>
                     <div class="col-xs-2">
-                        <button type="button" class="btn btn-warning btn-block" onclick="location='index.php'">取消</button>
+                        <a class="btn btn-warning btn-block" href="index.php">取消</a>
                     </div>
                 </div>
             </div>

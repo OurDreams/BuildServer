@@ -123,8 +123,8 @@ if ($result)
                 "position": "right"
             },
             "paging": {
-                "enabled": false,
-                "size": 15
+                "enabled": true,
+                "size": 10
             },
             "sorting": {
                 "enabled": false
