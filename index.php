@@ -25,11 +25,8 @@ h1 small
     font-size: 50%;
 }
 </style>
+
 <body>
-    <!--<h1>编译服务器信息
-        <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild.html'">申请编译</button>
-        <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newBuild1.php'">申请编译新</button>
-    </h1>-->
     <div class="container">
         <header>
             <h1>
@@ -38,17 +35,19 @@ h1 small
             </h1>
         </header>
         <hr style="margin-bottom:0">
-<?php
-require_once('config.php');
-$link=mysqli_connect(HOST, USERNAME, PASSWORD);//连库
-mysqli_set_charset($link, "utf8");
-mysqli_select_db($link, 'buildserver');//选库
-mysqli_query($link, 'set names utf8_bin');//字符集
-$result = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC");
 
-if ($result)
-{
-    ?>
+        <?php
+        require_once('config.php');
+        $link=mysqli_connect(HOST, USERNAME, PASSWORD);
+        mysqli_set_charset($link, "utf8");
+        mysqli_select_db($link, 'buildserver');
+        mysqli_query($link, 'set names utf8_bin');
+        $result = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC");
+
+        if ($result)
+        {
+        ?>
+        
     <table class="table table-striped table-hover" data-show-toggle="true" data-expand-first="false">
         <thead>
             <tr>
@@ -132,14 +131,14 @@ if ($result)
         });
     });
     </script>
-<?php
-}
-else
-{
-    die("无记录");
-}
-mysqli_close($link);
-?>
+    <?php
+    }
+    else
+    {
+        die("无记录");
+    }
+    mysqli_close($link);
+    ?>
     </div>
 </body>
 
