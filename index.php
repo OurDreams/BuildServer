@@ -101,7 +101,7 @@ h1 small
                             <h4 class="modal-title" id="myModalLabel">错误信息</h4>
                         </div>
                         <div class="modal-body">
-                            <iframe frameborder="0" width="100%" src="<?php echo $row['err_log_url'];?>"></iframe>
+                            <iframe frameborder="0" width="100%" src="<?php echo $row['err_log_url'];?>" charset='gbk'></iframe>
                         </div>
                     </div>
                 </div>

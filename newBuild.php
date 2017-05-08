@@ -239,7 +239,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>内核版本</label>
-                        <input type="text" class="form-control" name="kernel_ver" required placeholder="（ASCII码，5字符，例如1.0.9）" />
+                        <input type="text" class="form-control" name="kernel_ver" required placeholder="（ASCII码，5字符，例如1.0.9）"/>
                     </div>
                 </div>
             </div>
@@ -247,7 +247,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>计量版本</label>
-                        <input type="text" class="form-control" name="meter_ver" required placeholder="（2字节,十六进制,通过shell->vm命令查看）" />
+                        <input type="text" class="form-control" name="meter_ver" required placeholder="（通过终端vm命令查看，例如010d）"/>
                     </div>
                 </div>
             </div>
@@ -255,15 +255,15 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>oem信息</label>
-                        <input type="text" class="form-control" name="oem_ver" placeholder="（4字节，首字母表示,如上海联能SHLN）" />
+                        <input type="text" class="form-control" name="oem_ver" placeholder="（4字节，如上海联能SHLN）"/>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <label>备注</label>
-                        <input type="text" class="form-control" name="build_note" required/>
+                        <label>申请人</label>
+                        <input type="text" class="form-control" name="user_name" required/>
                     </div>
                 </div>
             </div>
@@ -278,6 +278,14 @@ h1 small
         </div>
 
         <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label>备注</label>
+                        <input type="text" class="form-control" name="build_note" required/>
+                    </div>
+                </div>
+            </div>
             <div display=block style="background-color:#eeeeee; line-height: 80%; padding: 10px;">
                 <p style="font-weight:bold;">请确认：</p>
                 <p>在源文件prdcfg.h中包含INCLUDE_FLASH_TEST， 并且有如下代码：</p>
