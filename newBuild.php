@@ -35,12 +35,45 @@ $(document).ready(function(){
 
 function chk_form()
 {
+    var reg = /^[0-9]{2}$/;
+    if(!reg.test(document.buildfrom.show_ver.value))
+    {
+        document.buildfrom.show_ver.focus();
+        $.notify({message: '当前版本格式错误，请重新填写'}, {type: 'danger'});
+        return false;
+    }
+
+    var reg = /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/;
+    if(!reg.test(document.buildfrom.kernel_ver.value))
+    {
+        document.buildfrom.kernel_ver.focus();
+        $.notify({message: '内核版本格式错误，请重新填写'}, {type: 'danger'});
+        return false;
+    }
+
+    reg = /^[0-9a-f]{4}$/;
+    if(!reg.test(document.buildfrom.meter_ver.value))
+    {
+        document.buildfrom.meter_ver.focus();
+        $.notify({message: '计量版本格式错误，请重新填写'}, {type: 'danger'});
+        return false;
+    }
+
+    reg = /^[A-Z]{4}$/;
+    if(!reg.test(document.buildfrom.oem_ver.value))
+    {
+        document.buildfrom.oem_ver.focus();
+        $.notify({message: 'oem信息格式错误，请重新填写'}, {type: 'danger'});
+        return false;
+    }
+
     if(add1 + add2 != document.buildfrom.sumchk.value)
     {
         document.buildfrom.sumchk.focus();
         $.notify({message: '验证码错误，请重新填写'}, {type: 'danger'});
         return false;  
     }
+    $.notify({message: 'pass'}, {type: 'success'});
 }
 </script>
 
@@ -71,13 +104,13 @@ h1 small
                 <div class="col-xs-9">  
                     <div class="form-group">
                         <label>SVN地址</label>
-                        <input type="url" class="form-control" name="svn_url" required/>
+                        <input type="url" class="form-control" name="svn_url" value="http://100.100.10.225/svn/ZD-sp5s/trunk/DJGZ23_SX4622TC_SP5" required/>
                     </div>
                 </div>
                 <div class="col-xs-3"> 
                     <div class="form-group">
                         <label>SVN版本号</label>
-                        <input class="form-control" name="svn_ver" required/>
+                        <input class="form-control" name="svn_ver" value="528" required/>
                     </div>
                 </div>
             </div>
@@ -85,7 +118,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>归档版本号</label>
-                        <input class="form-control" name="release_ver" required placeholder="（例如:C.SX4622T.HN.1518.9211.β4）"/>
+                        <input class="form-control" name="release_ver" value="C.SX4622T.HN.1518.9211.β4" required placeholder="（例如:C.SX4622T.HN.1518.9211.β4）"/>
                     </div>
                 </div>
             </div>
@@ -166,7 +199,7 @@ h1 small
                 <div class="col-xs-4"> 
                     <div class="form-group">
                         <label>当前版本</label>
-                        <input type="text" class="form-control" name="show_ver" required placeholder="两位数字" />
+                        <input type="text" class="form-control" name="show_ver" value="01" required placeholder="两位数字" />
                     </div>
                 </div>
             </div>
@@ -239,7 +272,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>内核版本</label>
-                        <input type="text" class="form-control" name="kernel_ver" required placeholder="（ASCII码，5字符，例如1.0.9）"/>
+                        <input type="text" class="form-control" name="kernel_ver" value="1.0.9" required placeholder="（ASCII码，5字符，例如1.0.9）"/>
                     </div>
                 </div>
             </div>
@@ -247,7 +280,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>计量版本</label>
-                        <input type="text" class="form-control" name="meter_ver" required placeholder="（通过终端vm命令查看，例如010d）"/>
+                        <input type="text" class="form-control" name="meter_ver" value="010d" required placeholder="（通过终端vm命令查看，例如010d，小写）"/>
                     </div>
                 </div>
             </div>
@@ -255,7 +288,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>oem信息</label>
-                        <input type="text" class="form-control" name="oem_ver" placeholder="（4字节，如上海联能SHLN）"/>
+                        <input type="text" class="form-control" name="oem_ver" value="SHLN" placeholder="（4字节，如上海联能SHLN，大写）"/>
                     </div>
                 </div>
             </div>
@@ -263,7 +296,7 @@ h1 small
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>申请人</label>
-                        <input type="text" class="form-control" name="user_name" required/>
+                        <input type="text" class="form-control" name="user_name" value="王珂" required/>
                     </div>
                 </div>
             </div>
@@ -271,7 +304,7 @@ h1 small
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label id="chklabel">请填写</label>
-                        <input type="text" class="form-control" name="sumchk" maxlength="3" placeholder="" required>
+                        <input type="text" class="form-control" name="sumchk" maxlength="3" value="0" placeholder="" required>
                     </div>
                 </div>
             </div>
@@ -282,7 +315,7 @@ h1 small
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>备注</label>
-                        <input type="text" class="form-control" name="build_note" required/>
+                        <input type="text" class="form-control" name="build_note"/>
                     </div>
                 </div>
             </div>
