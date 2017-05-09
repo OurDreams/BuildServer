@@ -37,14 +37,25 @@ h1 small
         <hr style="margin-bottom:0">
 
         <?php
+        $page_num=(int)(isset($_GET['p']) ? $_GET['p'] : '1');
+        if ($page_num < 1){$page_num = 1;}
+        $items_per_page=(int)(isset($_GET['i']) ? $_GET['i'] : '20');
+        if ($items_per_page < 1){$items_per_page = 20;}
+        $search=(isset($_GET['s']) ? $_GET['s'] : '');
+
         require_once('config.php');
         $link=mysqli_connect(HOST, USERNAME, PASSWORD);
         mysqli_set_charset($link, "utf8");
         mysqli_select_db($link, 'buildserver');
         mysqli_query($link, 'set names utf8_bin');
-        $result = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC");
+        $count = mysqli_query($link, "SELECT COUNT(*) AS count FROM build_information");
+        $row_sum = mysqli_fetch_array($count)['count'];
+        $page_sum = ceil($row_sum / $items_per_page);
 
-        if ($result)
+        $row_start = $items_per_page * $page_num;
+        $row_list = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC LIMIT $row_start,$items_per_page");
+
+        if ($row_list)
         {
         ?>
         
@@ -72,7 +83,7 @@ h1 small
 
         <tbody>
         <?php
-        while($row = mysqli_fetch_array($result))
+        while($row = mysqli_fetch_array($row_list))
         {
         ?>
             <tr>
@@ -115,14 +126,14 @@ h1 small
     jQuery(function($){
         $('.table').footable({
             "filtering": {
-                "enabled": true,
+                "enabled": false,
                 "placeholder": "搜索",
                 "delay": -1,
                 "dropdownTitle": "搜索于：",
                 "position": "right"
             },
             "paging": {
-                "enabled": true,
+                "enabled": false,
                 "size": 10
             },
             "sorting": {
@@ -131,6 +142,44 @@ h1 small
         });
     });
     </script>
+
+    <nav aria-label="Page navigation" style="margin-left: 15px">
+        <ul class="pagination">
+        <?php if($page_num == 1){?>
+            <li class="disabled"><span aria-hidden="true">上一页</span></li>
+        <?php }else{?>
+            <li class="previous"><a href="content_list.php?p=<?php echo ($page-1)?>"><span aria-hidden="true">上一页</span></a></li>
+        <?php }?>
+        <li <?php if($page_num == 1)echo "class='active'"?>><a href="index.php?p=1">1</a></li>
+        <?php
+        if ($page_num < 6)$page_count = 2;
+        elseif ($page_num >= $page_sum - 6)$page_count = $page_sum - 11;
+        else $page_count = $page_num - 4;
+        if ($page_num > 6)
+        {
+            echo "<li class=\"disabled\"><span aria-hidden=\"true\">...</span></li>";
+        }
+        for ($count=0; $count < 10; $count++)
+        {
+        ?>
+            <li <?php if($page_num == $page_count)echo "class='active'"?>><a href="index.php?p=<?php echo $page_count?>"><?php echo $page_count?></a></li>
+        <?php 
+            $page_count += 1;
+        }
+        if ($page_num < $page_sum - 7)
+        {
+            echo "<li class=\"disabled\"><span aria-hidden=\"true\">...</span></li>";
+        }?>
+            <li <?php if($page_num == $page_sum - 1)echo "class='active'"?>><a href="index.php?p=<?php echo ($page_sum - 1)?>"><?php echo ($page_sum - 1)?></a></li>
+        <?php 
+        if($page_num >= $page_sum-1){?>
+            <li class="disabled"><span aria-hidden="true">下一页</span></li>
+        <?php }else{?>
+            <li class="next"><a href="content_list.php?p=<?php echo ($page + 1)?>"><span aria-hidden="true">下一页</span></a></li>
+        <?php }?>
+        </ul>
+    </nav>
+
     <?php
     }
     else
