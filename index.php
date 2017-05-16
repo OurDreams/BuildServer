@@ -52,7 +52,7 @@ h1 small
         $row_sum = mysqli_fetch_array($count)['count'];
         $page_sum = ceil($row_sum / $items_per_page);
 
-        $row_start = $items_per_page * $page_num;
+        $row_start = $items_per_page * ($page_num-1);
         $row_list = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC LIMIT $row_start,$items_per_page");
 
         if ($row_list)
@@ -149,29 +149,13 @@ h1 small
             <li class="disabled"><span aria-hidden="true">上一页</span></li>
         <?php }else{?>
             <li class="previous"><a href="content_list.php?p=<?php echo ($page-1)?>"><span aria-hidden="true">上一页</span></a></li>
-        <?php }?>
-        <li <?php if($page_num == 1)echo "class='active'"?>><a href="index.php?p=1">1</a></li>
-        <?php
-        if ($page_num < 6)$page_count = 2;
-        elseif ($page_num >= $page_sum - 6)$page_count = $page_sum - 11;
-        else $page_count = $page_num - 4;
-        if ($page_num > 6)
-        {
-            echo "<li class=\"disabled\"><span aria-hidden=\"true\">...</span></li>";
-        }
-        for ($count=0; $count < 10; $count++)
+        <?php }
+        for ($page_count=0; $page_count < $page_sum; $page_count++)
         {
         ?>
-            <li <?php if($page_num == $page_count)echo "class='active'"?>><a href="index.php?p=<?php echo $page_count?>"><?php echo $page_count?></a></li>
+            <li <?php if($page_num == $page_count+1)echo "class='active'"?>><a href="index.php?p=<?php echo $page_count?>"><?php echo ($page_count+1)?></a></li>
         <?php 
-            $page_count += 1;
         }
-        if ($page_num < $page_sum - 7)
-        {
-            echo "<li class=\"disabled\"><span aria-hidden=\"true\">...</span></li>";
-        }?>
-            <li <?php if($page_num == $page_sum - 1)echo "class='active'"?>><a href="index.php?p=<?php echo ($page_sum - 1)?>"><?php echo ($page_sum - 1)?></a></li>
-        <?php 
         if($page_num >= $page_sum-1){?>
             <li class="disabled"><span aria-hidden="true">下一页</span></li>
         <?php }else{?>

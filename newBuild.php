@@ -59,7 +59,7 @@ function chk_form()
         return false;
     }
 
-    reg = /^[A-Z]{4}$/;
+    reg = /^[A-Z]{4}$|^$/;
     if(!reg.test(document.buildfrom.oem_ver.value))
     {
         document.buildfrom.oem_ver.focus();
@@ -288,7 +288,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>oem信息</label>
-                        <input type="text" class="form-control" name="oem_ver" value="SHLN" placeholder="（4字节，如上海联能SHLN，大写）"/>
+                        <input type="text" class="form-control" name="oem_ver" value="" placeholder="（4字节，如上海联能SHLN，大写）"/>
                     </div>
                 </div>
             </div>
