@@ -105,13 +105,13 @@ h1 small
                 <div class="col-xs-9">  
                     <div class="form-group">
                         <label>SVN地址</label>
-                        <input type="url" class="form-control" name="svn_url" value="http://100.100.10.225/svn/ZD-sp5s/trunk/DJGZ23_SX4622TC_SP5" required/>
+                        <input type="url" class="form-control" name="svn_url" required/>
                     </div>
                 </div>
                 <div class="col-xs-3"> 
                     <div class="form-group">
                         <label>SVN版本号</label>
-                        <input class="form-control" name="svn_ver" value="528" required/>
+                        <input class="form-control" name="svn_ver" required/>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@ h1 small
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>归档版本号</label>
-                        <input class="form-control" name="release_ver" value="C.SX4622T.HN.1518.9211.β4" required placeholder="（例如:C.SX4622T.HN.1518.9211.β4）"/>
+                        <input class="form-control" name="release_ver" required placeholder="（例如:C.SX4622T.HN.1518.9211.β4）"/>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@ h1 small
                 <div class="col-xs-4"> 
                     <div class="form-group">
                         <label>当前版本</label>
-                        <input type="text" class="form-control" name="show_ver" value="01" required placeholder="两位数字" />
+                        <input type="text" class="form-control" name="show_ver" required placeholder="两位数字" />
                     </div>
                 </div>
             </div>
@@ -297,7 +297,7 @@ h1 small
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>申请人</label>
-                        <input type="text" class="form-control" name="user_name" value="王珂" required/>
+                        <input type="text" class="form-control" name="user_name" required/>
                     </div>
                 </div>
             </div>
@@ -305,7 +305,7 @@ h1 small
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label id="chklabel">请填写</label>
-                        <input type="text" class="form-control" name="sumchk" maxlength="3" value="0" placeholder="" required>
+                        <input type="text" class="form-control" name="sumchk" maxlength="3" placeholder="" required>
                     </div>
                 </div>
             </div>

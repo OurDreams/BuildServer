@@ -149,18 +149,18 @@ h1 small
         <?php if($page_num == 1){?>
             <li class="disabled"><span aria-hidden="true">上一页</span></li>
         <?php }else{?>
-            <li class="previous"><a href="content_list.php?p=<?php echo ($page-1)?>"><span aria-hidden="true">上一页</span></a></li>
+            <li class="previous"><a href="index.php?p=<?php echo ($page_num-1);?>"><span aria-hidden="true">上一页</span></a></li>
         <?php }
         for ($page_count=0; $page_count < $page_sum; $page_count++)
         {
         ?>
-            <li <?php if($page_num == $page_count+1)echo "class='active'"?>><a href="index.php?p=<?php echo $page_count?>"><?php echo ($page_count+1)?></a></li>
+            <li <?php if($page_num == $page_count+1)echo "class='active'";?>><a href="index.php?p=<?php echo ($page_count+1);?>"><?php echo ($page_count+1)?></a></li>
         <?php 
         }
-        if($page_num >= $page_sum-1){?>
+        if($page_num >= $page_sum){?>
             <li class="disabled"><span aria-hidden="true">下一页</span></li>
         <?php }else{?>
-            <li class="next"><a href="content_list.php?p=<?php echo ($page + 1)?>"><span aria-hidden="true">下一页</span></a></li>
+            <li class="next"><a href="index.php?p=<?php echo ($page_num + 1)?>"><span aria-hidden="true">下一页</span></a></li>
         <?php }?>
         </ul>
     </nav>
