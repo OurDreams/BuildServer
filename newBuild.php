@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<meta name="renderer" content="webkit"> 
 <meta charset="UTF-8">
 <title>申请编译</title>
 <link rel="bookmark" type="image/x-icon" href="img/logo.ico" />
