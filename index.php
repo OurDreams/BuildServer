@@ -102,8 +102,25 @@ h1 small
                 <td><?php echo $row['user_name'];?></td>
                 <td><?php echo $row['commit_time'];?></td>
                 <td><?php echo $row['status'];?></td>
-                <td><?php if ($row['out_zip_url']) echo "<a href=".$row['out_zip_url'].">下载</a>";?></td>
-                <td><?php if ($row['err_log_url']) echo "<a  data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";?></td>
+                <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
+                    {
+                        echo "<a href='outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>下载</a>";
+                    }
+                    else
+                    {
+                        echo "-";
+                    }
+                    ?>
+                </td>
+                <td><?php if (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
+                    {
+                        echo "<a  data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";
+                    }
+                    else
+                    {
+                        echo "-";
+                    }?>
+                </td>
             </tr>
             <div class="modal fade" id="errlog<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -113,7 +130,7 @@ h1 small
                             <h4 class="modal-title" id="myModalLabel">错误信息</h4>
                         </div>
                         <div class="modal-body">
-                            <iframe frameborder="0" width="100%" src="<?php echo $row['err_log_url'];?>" charset='gbk'></iframe>
+                            <iframe frameborder="0" width="100%" src="<?php echo 'outfiles/' . sprintf('%06s', $row['build_id']) . '/errlog.log';?>" charset='gbk'></iframe>
                         </div>
                     </div>
                 </div>

@@ -22,8 +22,6 @@ CREATE TABLE IF NOT EXISTS `build_information` (
   `commit_time` datetime DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `finsh_time` datetime DEFAULT NULL,
-  `out_zip_url` varchar(255) COLLATE utf8_bin NOT NULL,
-  `err_log_url` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
