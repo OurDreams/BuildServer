@@ -11,10 +11,6 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 
-<!--footable-->
-<link href="css/footable.bootstrap.css" rel="stylesheet">
-<script src="js/footable.js"></script>
-
 <style>
 h1
 {
@@ -45,6 +41,7 @@ h1 small
         $search=(isset($_GET['s']) ? $_GET['s'] : '');
 
         require_once('config.php');
+        include('common.php');
         $link=mysqli_connect(HOST, USERNAME, PASSWORD);
         mysqli_set_charset($link, "utf8");
         mysqli_select_db($link, 'buildserver');
@@ -60,25 +57,19 @@ h1 small
         {
         ?>
         
-    <table class="table table-striped table-hover" data-show-toggle="true" data-expand-first="false">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th data-sortable="false"></th>
-                <th data-type="number">ID</th>
-                <th data-breakpoints="all">SVN地址</th>
-                <th data-breakpoints="all">SVN版本号</th>
+                <th></th>
+                <th>ID</th>
                 <th>归档版本号</th>
-                <th data-breakpoints="all">显示版本</th>
-                <th data-breakpoints="all">BSP版本</th>
-                <th data-breakpoints="all">内核版本</th>
-                <th data-breakpoints="all">计量版本</th>
-                <th data-breakpoints="all">oem信息</th>
-                <th data-breakpoints="all" data-sortable="false">备注</th>
                 <th>申请人</th>
-                <th data-type="date">申请时间</th>
-                <th data-sortable="false" data-title="当前状态">当前状态</th>
-                <th data-sortable="false">归档包</th>
-                <th data-sortable="false">errlog</th>
+                <th>申请时间</th>
+                <th>备注</th>
+                <th>当前状态</th>
+                <th>归档包</th>
+                <th>errlog</th>
+                <th>详情</th>
             </tr>
         </thead>
 
@@ -90,17 +81,10 @@ h1 small
             <tr>
                 <td> </td>
                 <td><?php echo $row['build_id'];?></td>
-                <td><?php echo $row['svn_url'];?></td>
-                <td><?php echo $row['svn_ver'];?></td>
                 <td><?php echo $row['release_ver'];?></td>
-                <td><?php echo $row['show_ver'];?></td>
-                <td><?php echo $row['bsp_ver'];?></td>
-                <td><?php echo $row['kernel_ver'];?></td>
-                <td><?php echo $row['meter_ver'];?></td>
-                <td><?php echo $row['oem_ver'];?></td>
-                <td><?php echo $row['build_note'];?></td>
                 <td><?php echo $row['user_name'];?></td>
                 <td><?php echo $row['commit_time'];?></td>
+                <td><?php if (strlen($row['build_note'])>10) echo mb_substr($row['build_note'], 0, 10, 'gb2312').'...';?></td>
                 <td><?php echo $row['status'];?></td>
                 <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
                     {
@@ -114,13 +98,14 @@ h1 small
                 </td>
                 <td><?php if (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
                     {
-                        echo "<a  data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";
+                        echo "<a data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";
                     }
                     else
                     {
                         echo "-";
                     }?>
                 </td>
+                <td><a data-toggle='modal' data-target='#detail<?php echo $row['build_id'];?>'>详情</a></td>
             </tr>
             <div class="modal fade" id="errlog<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -135,31 +120,24 @@ h1 small
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="detail<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">ID<?php echo $row['build_id'];?> 详细信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <?php echo_detail($row['build_id']);?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php
         }
         ?>
         </tbody>
     </table>
-    <script>
-    jQuery(function($){
-        $('.table').footable({
-            "filtering": {
-                "enabled": false,
-                "placeholder": "搜索",
-                "delay": -1,
-                "dropdownTitle": "搜索于：",
-                "position": "right"
-            },
-            "paging": {
-                "enabled": false,
-                "size": 10
-            },
-            "sorting": {
-                "enabled": false
-            }
-        });
-    });
-    </script>
 
     <nav aria-label="Page navigation" style="margin-left: 15px">
         <ul class="pagination">
