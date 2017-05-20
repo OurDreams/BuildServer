@@ -11,6 +11,36 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 
+<script>
+var showErrlogModal = function (build_id) {
+    id_str = '00000' + build_id;
+    $.ajax({
+        type : "get",
+        url : "/BuildServer/outfiles/" + id_str.substr(id_str.length - 6) + "/errlog.log",
+        timeout:1000,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        success:function(datas){
+            $('#errlog-content').html('');
+            $('#errlog-content').append(datas);
+        },
+    });
+    $("#errlogmodal").modal('show');
+}
+var showDetailModal = function (build_id) {
+    $.ajax({
+        type : "get",
+        url : "detail.php",
+        data : {'id':build_id},
+        timeout:1000,
+        success:function(datas){
+            $('#detailmodal').html('');
+            $('#detailmodal').append(datas);
+        },
+    });
+    $("#detailmodal").modal('show');
+}
+</script>
+
 <style>
 h1
 {
@@ -24,11 +54,31 @@ h1 small
 </style>
 
 <body>
+    <!-- errlog Modal -->
+    <div class="modal fade" id="errlogmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">错误信息</h4>
+                </div>
+                <div class="modal-body">
+                    <pre id="errlog-content" style="white-space: pre-wrap; word-wrap: break-word;">
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- detail Modal -->
+    <div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
+
     <div class="container">
         <header>
             <h1>
-                编译服务器信息
-                <button type="button" class="btn btn-xs btn-danger btn-compile" onclick="location='newbuild.php'">申请编译</button>
+                编译服务器信息<small>请使用非IE内核的浏览器以保证显示效果！</small>
+                <button type="button" class="btn btn-danger btn-compile pull-right" onclick="location='newbuild.php'">申请编译</button>
             </h1>
         </header>
         <hr style="margin-bottom:0">
@@ -41,7 +91,6 @@ h1 small
         $search=(isset($_GET['s']) ? $_GET['s'] : '');
 
         require_once('config.php');
-        include('common.php');
         $link=mysqli_connect(HOST, USERNAME, PASSWORD);
         mysqli_set_charset($link, "utf8");
         mysqli_select_db($link, 'buildserver');
@@ -67,8 +116,7 @@ h1 small
                 <th>申请时间</th>
                 <th>备注</th>
                 <th>当前状态</th>
-                <th>归档包</th>
-                <th>errlog</th>
+                <th>输出</th>
                 <th>详情</th>
             </tr>
         </thead>
@@ -88,7 +136,11 @@ h1 small
                 <td><?php echo $row['status'];?></td>
                 <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
                     {
-                        echo "<a href='outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>下载</a>";
+                        echo "<a class='btn btn-default' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
+                    }
+                    elseif (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
+                    {
+                        echo "<button class='btn btn-default' onclick='showErrlogModal({$row['build_id']})'>errlog</a>";
                     }
                     else
                     {
@@ -96,43 +148,9 @@ h1 small
                     }
                     ?>
                 </td>
-                <td><?php if (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
-                    {
-                        echo "<a data-toggle='modal' data-target='#errlog{$row['build_id']}'>查看</a>";
-                    }
-                    else
-                    {
-                        echo "-";
-                    }?>
-                </td>
-                <td><a data-toggle='modal' data-target='#detail<?php echo $row['build_id'];?>'>详情</a></td>
+                <!--<td><button class='btn btn-default' onclick='showDetailModal(<?php echo $row['build_id'];?>)'>详情</button></td>-->
+                <td><button class='btn btn-default' onclick="window.open('detail.php?id=<?php echo  $row['build_id'];?>')">详情</button></td>
             </tr>
-            <div class="modal fade" id="errlog<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">错误信息</h4>
-                        </div>
-                        <div class="modal-body">
-                            <iframe frameborder="0" width="100%" src="<?php echo 'outfiles/' . sprintf('%06s', $row['build_id']) . '/errlog.log';?>" charset='gbk'></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="detail<?php echo $row['build_id'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">ID<?php echo $row['build_id'];?> 详细信息</h4>
-                        </div>
-                        <div class="modal-body">
-                            <?php echo_detail($row['build_id']);?>
-                        </div>
-                    </div>
-                </div>
-            </div>
         <?php
         }
         ?>

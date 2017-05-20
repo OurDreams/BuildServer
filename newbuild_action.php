@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="css/animate.css">
 <script src="js/bootstrap-notify.js"></script>
 <?php
-    $svn_url=$_POST["svn_url"];
-    $svn_ver=$_POST['svn_ver'];
-    $release_ver=$_POST['release_ver'];
-    $show_ver=$_POST['product_type'].$_POST['product_aera'].'.'.$_POST['show_ver'];
+    $svn_url=trim($_POST["svn_url"]);
+    $svn_ver=trim($_POST['svn_ver']);
+    $release_ver=trim($_POST['release_ver']);
+    $show_ver=$_POST['product_type'].$_POST['product_aera'].'.'.trim($_POST['show_ver']);
     $bsp_ver=$_POST['bsp_type'].'.'.$_POST['platform'].'.'.$_POST['bsp_ver'];
     $kernel_ver=$_POST["kernel_ver"];
     $meter_ver='0x'.$_POST['meter_ver'];
@@ -20,8 +20,8 @@
     $boot_type = $_POST['boot_type'];
     $boot_size = $_POST['boot_size'];
     $app_size = $_POST['app_size'];
-    $user_name = $_POST['user_name'];
-    $build_note=$_POST["build_note"];
+    $user_name = trim($_POST['user_name']);
+    $build_note= $_POST["build_note"];
     $remote_ip = $_SERVER["REMOTE_ADDR"];
     $timenow = date('Y-m-d H:i:s');//获取时间作为申请时间
 
