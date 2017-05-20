@@ -78,7 +78,7 @@ h1 small
         <header>
             <h1>
                 编译服务器信息<small>请使用非IE内核的浏览器以保证显示效果！</small>
-                <button type="button" class="btn btn-danger btn-compile pull-right" onclick="location='newbuild.php'">申请编译</button>
+                <button type="button" class="btn btn-primary btn-compile pull-right" onclick="location='newbuild.php'">申请编译</button>
             </h1>
         </header>
         <hr style="margin-bottom:0">
@@ -136,11 +136,11 @@ h1 small
                 <td><?php echo $row['status'];?></td>
                 <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
                     {
-                        echo "<a class='btn btn-default' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
+                        echo "<a class='btn btn-success' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
                     }
                     elseif (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
                     {
-                        echo "<button class='btn btn-default' onclick='showErrlogModal({$row['build_id']})'>errlog</a>";
+                        echo "<button class='btn btn-danger' onclick='showErrlogModal({$row['build_id']})'>errlog</a>";
                     }
                     else
                     {
