@@ -39,6 +39,17 @@ var showDetailModal = function (build_id) {
     });
     $("#detailmodal").modal('show');
 }
+var showDelModal = function (build_id) {
+    document.getElementById("delid").setAttribute("value", build_id);
+    $('#del-title').html('');
+    $('#del-title').append('请输入删除ID ' + build_id + '的密码：');
+    $("#delmodal").modal('show');
+}
+var delsubmit = function () {
+    var delid = document.getElementById("delid").value;
+    var password = document.getElementById("password").value;
+    window.location.href="delrow.php?id=" + delid + "&pw=" + password; 
+}
 </script>
 
 <style>
@@ -66,6 +77,28 @@ h1 small
                     <pre id="errlog-content" style="white-space: pre-wrap; word-wrap: break-word;">
                     </pre>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- del Modal -->
+    <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="del-title"></h4>
+                </div>
+                <from class="form-group" method="post" name="del-from" action="delrow.php">
+                <div class="modal-body">
+                        <input type="hidden" id="delid" name="id" class="form-control">
+                        <input type="text" id="password" name="password" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="delsubmit()">删除</button>
+                    <button type="button" name="submit" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+                </from>
             </div>
         </div>
     </div>
@@ -100,7 +133,7 @@ h1 small
         $page_sum = ceil($row_sum / $items_per_page);
 
         $row_start = $items_per_page * ($page_num-1);
-        $row_list = mysqli_query($link, "SELECT * FROM build_information ORDER BY build_id DESC LIMIT $row_start,$items_per_page");
+        $row_list = mysqli_query($link, "SELECT * FROM build_information WHERE status!='del' ORDER BY build_id DESC LIMIT $row_start,$items_per_page");
 
         if ($row_list)
         {
@@ -118,6 +151,7 @@ h1 small
                 <th>当前状态</th>
                 <th>输出</th>
                 <th>详情</th>
+                <th> </th>
             </tr>
         </thead>
 
@@ -148,8 +182,9 @@ h1 small
                     }
                     ?>
                 </td>
-                <!--<td><button class='btn btn-default' onclick='showDetailModal(<?php echo $row['build_id'];?>)'>详情</button></td>-->
-                <td><button class='btn btn-default' onclick="window.open('detail.php?id=<?php echo  $row['build_id'];?>')">详情</button></td>
+                <td><button class='btn btn-default' onclick='showDetailModal(<?php echo $row['build_id'];?>)'>详情</button></td>
+                <!--<td><button class='btn btn-default' onclick="window.open('detail.php?id=<?php echo  $row['build_id'];?>')">详情</button></td>-->
+                <td><button class='btn btn-danger' onclick="showDelModal(<?php echo $row['build_id'];?>)">删除</button></td>
             </tr>
         <?php
         }
