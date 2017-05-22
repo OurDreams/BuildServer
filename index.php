@@ -128,7 +128,7 @@ h1 small
         mysqli_set_charset($link, "utf8");
         mysqli_select_db($link, 'buildserver');
         mysqli_query($link, 'set names utf8_bin');
-        $count = mysqli_query($link, "SELECT COUNT(*) AS count FROM build_information");
+        $count = mysqli_query($link, "SELECT COUNT(*) AS count FROM build_information WHERE status!='del'");
         $row_sum = mysqli_fetch_array($count)['count'];
         $page_sum = ceil($row_sum / $items_per_page);
 
