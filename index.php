@@ -151,7 +151,7 @@ h1 small
                 <th>当前状态</th>
                 <th>输出</th>
                 <th>详情</th>
-                <th> </th>
+                <th>操作</th>
             </tr>
         </thead>
 
@@ -165,16 +165,16 @@ h1 small
                 <td><?php echo $row['build_id'];?></td>
                 <td><?php echo $row['release_ver'];?></td>
                 <td><?php echo $row['user_name'];?></td>
-                <td><?php echo $row['commit_time'];?></td>
+                <td><?php echo substr($row['commit_time'], 0, 10);?></td>
                 <td><?php if (strlen($row['build_note'])>10) echo mb_substr($row['build_note'], 0, 10, 'gb2312').'...';?></td>
                 <td><?php echo $row['status'];?></td>
                 <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
                     {
-                        echo "<a class='btn btn-success' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
+                        echo "<a class='btn btn-success btn-xs' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
                     }
                     elseif (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
                     {
-                        echo "<button class='btn btn-danger' onclick='showErrlogModal({$row['build_id']})'>errlog</a>";
+                        echo "<button class='btn btn-danger btn-xs' onclick='showErrlogModal({$row['build_id']})'>errlog</a>";
                     }
                     else
                     {
@@ -182,9 +182,9 @@ h1 small
                     }
                     ?>
                 </td>
-                <td><button class='btn btn-default' onclick='showDetailModal(<?php echo $row['build_id'];?>)'>详情</button></td>
-                <!--<td><button class='btn btn-default' onclick="window.open('detail.php?id=<?php echo  $row['build_id'];?>')">详情</button></td>-->
-                <td><button class='btn btn-danger' onclick="showDelModal(<?php echo $row['build_id'];?>)">删除</button></td>
+                <td><button class='btn btn-default btn-xs' onclick='showDetailModal(<?php echo $row['build_id'];?>)'>详情</button></td>
+                <!--<td><button class='btn btn-default btn-xs' onclick="window.open('detail.php?id=<?php echo  $row['build_id'];?>')">详情</button></td>-->
+                <td><button class='btn btn-danger btn-xs' onclick="showDelModal(<?php echo $row['build_id'];?>)">删除</button></td>
             </tr>
         <?php
         }
