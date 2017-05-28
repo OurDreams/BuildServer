@@ -64,6 +64,12 @@ h1 small
 }
 </style>
 
+<?php
+    if (strpos($_SERVER['HTTP_USER_AGENT'],'MSIE'))
+    {?>
+       <script>alert("系统检测到您正在使用IE浏览器，我们强烈建议您使用Chrome或Firefox浏览器浏览本网站！");</script>
+<?php }?>
+
 <body>
     <!-- errlog Modal -->
     <div class="modal fade" id="errlogmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -110,7 +116,7 @@ h1 small
     <div class="container">
         <header>
             <h1>
-                编译服务器信息<small>请使用非IE内核的浏览器以保证显示效果！</small>
+                编译服务器信息<small>请使用Chrome或Firefox浏览器！<span style="color: red">请勿使用IE！</span></small>
                 <button type="button" class="btn btn-primary btn-compile pull-right" onclick="location='newbuild.php'">申请编译</button>
             </h1>
         </header>

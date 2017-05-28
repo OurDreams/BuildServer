@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<meta name="renderer" content="webkit"> 
+<meta name="renderer" content="webkit">
 <meta charset="UTF-8">
 <title>申请编译</title>
 <link rel="bookmark" type="image/x-icon" href="img/logo.ico" />
@@ -34,9 +34,31 @@ $(document).ready(function(){
     $("#chklabel").html("请填写"+add1+"+"+add2+"=");
 });
 
+function take_svn(svn_url)
+{
+    $.ajax({
+        type : "get",
+        url : "svnlog.php",
+        data : {'url':svn_url},
+        cache: false,
+        timeout:1000,
+        success:function(datas){
+            $('#svnver').html(datas);
+        },
+    });
+}
+
 function chk_form()
 {
-    var reg = /^[0-9]{2}$/;
+    var reg = /\/tags\/|\/TAGS\//;
+    if(!reg.test(document.buildfrom.svn_url.value))
+    {
+        document.buildfrom.svn_url.focus();
+        $.notify({message: '请填写打好tag的svn路径'}, {type: 'danger'});
+        return false;
+    }
+
+    reg = /^[0-9]{2}$/;
     if(!reg.test(document.buildfrom.show_ver.value))
     {
         document.buildfrom.show_ver.focus();
@@ -44,7 +66,7 @@ function chk_form()
         return false;
     }
 
-    var reg = /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/;
+    reg = /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/;
     if(!reg.test(document.buildfrom.kernel_ver.value))
     {
         document.buildfrom.kernel_ver.focus();
@@ -88,7 +110,23 @@ h1 small
 {
     font-size: 50%;
 }
+
+.popover
+{
+    width: 200%;
+}
+
+stream_select
+{
+    max-width: 100%;
+}
 </style>
+
+<?php
+    if (strpos($_SERVER['HTTP_USER_AGENT'],'MSIE'))
+    {?>
+       <script>alert("系统检测到您正在使用IE浏览器，我们强烈建议您使用Chrome或Firefox浏览器浏览本网站！");</script>
+<?php }?>
 
 <body>
   <div class="container">
@@ -102,16 +140,19 @@ h1 small
     <form class="form-group" name="buildfrom" method="post" action="newbuild_action.php" onsubmit="return chk_form();">
         <div class="col-xs-7">
             <div class="row">
-                <div class="col-xs-9">  
+                <div class="col-xs-12">  
                     <div class="form-group">
-                        <label>SVN地址</label>
-                        <input type="url" class="form-control" name="svn_url" required/>
+                        <label>SVN地址(请务必打好tag)</label>
+                        <input type="url" class="form-control" id="svnurl" name="svn_url" onkeyup="take_svn(this.value)" required/>
                     </div>
                 </div>
-                <div class="col-xs-3"> 
+            </div>
+            <div class="row">
+                <div class="col-xs-12">  
                     <div class="form-group">
-                        <label>SVN版本号</label>
-                        <input class="form-control" name="svn_ver" required/>
+                        <label>选择SVN版本号(填写svn地址后自动获取)</label>
+                        <select name="svn_ver" id="svnver" class="form-control" required>
+                        </select>
                     </div>
                 </div>
             </div>
