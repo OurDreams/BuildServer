@@ -119,7 +119,7 @@ h1 small
     <div class="container">
         <header>
             <h1>
-                编译服务器信息<small>请使用Chrome或Firefox浏览器！<span style="color: red">请勿使用IE！</span></small>
+                终端通信部编译服务器<small>请使用Chrome或Firefox浏览器！<span style="color: red">请勿使用IE！</span></small>
                 <button type="button" class="btn btn-primary btn-compile pull-right" onclick="location='newbuild.php'">申请编译</button>
             </h1>
         </header>
@@ -221,6 +221,10 @@ h1 small
         <?php }?>
         </ul>
     </nav>
+
+    <div style="margin-bottom: 20px; text-align: center;">
+        <p>Copyright(C), 2005-2020,Sanxing Medical &amp; Electric Co.,Ltd. | <a href="dev_log.php">开发日志</a></p>
+    </div>
 
     <?php
     }

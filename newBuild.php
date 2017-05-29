@@ -90,6 +90,14 @@ function chk_form()
         return false;
     }
 
+    reg = /^[\u4e00-\u9fa5]{2,4}$/;
+    if(!reg.test(document.buildfrom.user_name.value))
+    {
+        document.buildfrom.user_name.focus();
+        $.notify({message: '请填写真实的姓名'}, {type: 'danger'});
+        return false;
+    }
+
     if(add1 + add2 != document.buildfrom.sumchk.value)
     {
         document.buildfrom.sumchk.focus();
@@ -142,8 +150,8 @@ stream_select
             <div class="row">
                 <div class="col-xs-12">  
                     <div class="form-group">
-                        <label>SVN地址(请务必打好tag)</label>
-                        <input type="url" class="form-control" id="svnurl" name="svn_url" onkeyup="take_svn(this.value)" autofocus required/>
+                        <label>SVN地址</label>
+                        <input type="url" class="form-control" id="svnurl" name="svn_url" placeholder="请务必打好tag" onkeyup="take_svn(this.value)" autofocus required/>
                     </div>
                 </div>
             </div>
@@ -160,7 +168,7 @@ stream_select
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>归档版本号</label>
-                        <input class="form-control" name="release_ver" required placeholder="（例如:C.SX4622T.HN.1518.9211.β4）"/>
+                        <input class="form-control" name="release_ver" required placeholder="例如:C.SX4622T.HN.1518.9211.β4"/>
                     </div>
                 </div>
             </div>
@@ -314,7 +322,7 @@ stream_select
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>内核版本</label>
-                        <input type="text" class="form-control" name="kernel_ver" value="1.0.9" required placeholder="（ASCII码，5字符，例如1.0.9）"/>
+                        <input type="text" class="form-control" name="kernel_ver" value="1.0.9" required placeholder="ASCII码，5字符，例如1.0.9"/>
                     </div>
                 </div>
             </div>
@@ -322,7 +330,7 @@ stream_select
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>计量版本</label>
-                        <input type="text" class="form-control" name="meter_ver" value="010d" required placeholder="（通过终端vm命令查看，例如010d，小写）"/>
+                        <input type="text" class="form-control" name="meter_ver" value="010d" required placeholder="通过终端vm命令查看，例如010d，小写"/>
                     </div>
                 </div>
             </div>
@@ -330,7 +338,7 @@ stream_select
                 <div class="col-xs-12"> 
                     <div class="form-group">
                         <label>oem信息</label>
-                        <input type="text" class="form-control" name="oem_ver" value="" placeholder="（4字节，如上海联能SHLN，大写）"/>
+                        <input type="text" class="form-control" name="oem_ver" value="" placeholder="4字节，如上海联能SHLN，大写。选填"/>
                     </div>
                 </div>
             </div>
@@ -338,7 +346,7 @@ stream_select
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>申请人</label>
-                        <input type="text" class="form-control" name="user_name" required/>
+                        <input type="text" class="form-control" name="user_name" placeholder="请填写真实姓名" required/>
                     </div>
                 </div>
             </div>
@@ -357,7 +365,7 @@ stream_select
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>备注</label>
-                        <input type="text" class="form-control" name="build_note"/>
+                        <input type="text" class="form-control" name="build_note" placeholder="选填"/>
                     </div>
                 </div>
             </div>
