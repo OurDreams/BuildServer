@@ -44,10 +44,13 @@ var showDelModal = function (build_id) {
     $('#del-title').html('');
     $('#del-title').append('请输入删除ID ' + build_id + '的密码：');
     $("#delmodal").modal('show');
+    $('#delmodal').on('shown.bs.modal', function (e) {
+        document.getElementById("delpw").focus(); 
+    })
 }
 var delsubmit = function () {
     var delid = document.getElementById("delid").value;
-    var password = document.getElementById("password").value;
+    var password = document.getElementById("delpw").value;
     window.location.href="delrow.php?id=" + delid + "&pw=" + password; 
 }
 </script>
@@ -72,7 +75,7 @@ h1 small
 
 <body>
     <!-- errlog Modal -->
-    <div class="modal fade" id="errlogmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="errlogmodal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -88,7 +91,7 @@ h1 small
     </div>
 
     <!-- del Modal -->
-    <div class="modal fade" id="delmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delmodal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -98,7 +101,7 @@ h1 small
                 <from class="form-group" method="post" name="del-from" action="delrow.php">
                 <div class="modal-body">
                         <input type="hidden" id="delid" name="id" class="form-control">
-                        <input type="text" id="password" name="password" class="form-control">
+                        <input type="password" id="delpw" name="password" class="form-control">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onclick="delsubmit()">删除</button>
@@ -110,7 +113,7 @@ h1 small
     </div>
 
     <!-- detail Modal -->
-    <div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="detailmodal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     </div>
 
     <div class="container">

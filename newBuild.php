@@ -143,7 +143,7 @@ stream_select
                 <div class="col-xs-12">  
                     <div class="form-group">
                         <label>SVN地址(请务必打好tag)</label>
-                        <input type="url" class="form-control" id="svnurl" name="svn_url" onkeyup="take_svn(this.value)" required/>
+                        <input type="url" class="form-control" id="svnurl" name="svn_url" onkeyup="take_svn(this.value)" autofocus required/>
                     </div>
                 </div>
             </div>
