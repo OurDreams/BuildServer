@@ -108,9 +108,34 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><h3 class="panel-title">备注</h3></div>
-                        <div class="panel-body"><?php echo $row['build_note'];?></div>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h3 class="panel-title">备注</h3></div>
+                                <div class="panel-body"><?php echo $row['build_note'];?></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h3 class="panel-title">输出</h3></div>
+                                <div class="panel-body">
+                                <?php 
+                                if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
+                                {
+                                    echo "<a class='btn btn-success btn-xs' href='/BuildServer/outfiles/". sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip'."'>归档包</a>";
+                                }
+                                elseif (is_file(OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/errlog.log'))
+                                {
+                                    echo "<a class='btn btn-danger btn-xs' href='/BuildServer/outfiles/" . sprintf('%06s', $row['build_id']) . "/errlog.log'>errlog</a>";
+                                }
+                                else
+                                {
+                                    echo "-";
+                                }
+                                ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

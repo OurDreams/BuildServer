@@ -175,7 +175,7 @@ h1 small
                 <td><?php echo $row['release_ver'];?></td>
                 <td><?php echo $row['user_name'];?></td>
                 <td><?php echo substr($row['commit_time'], 0, 10);?></td>
-                <td><?php if (strlen($row['build_note'])>10) echo mb_substr($row['build_note'], 0, 10, 'gb2312').'...';?></td>
+                <td><?php if (strlen($row['build_note'])>10) echo mb_strcut($row['build_note'], 0, 20, 'utf-8').'...';?></td>
                 <td><?php echo $row['status'];?></td>
                 <td><?php if (is_file(iconv('UTF-8','GB2312', OUTFILEPATH . '/' . sprintf('%06s', $row['build_id']) . '/' . $row['release_ver'] . '.zip')))
                     {
