@@ -223,7 +223,7 @@ h1 small
     </nav>
 
     <div style="margin-bottom: 20px; text-align: center;">
-        <p>Copyright(C), 2005-2020,Sanxing Medical &amp; Electric Co.,Ltd. | <a href="dev_log.php">开发日志</a></p>
+        <p>Designed by Kay. Powered by Bootstrap. | <a href="dev_log.php">开发日志</a></p>
     </div>
 
     <?php
