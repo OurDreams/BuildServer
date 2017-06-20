@@ -66,7 +66,7 @@ function chk_form()
         return false;
     }
 
-    reg = /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/;
+    reg = /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}[nN]{0,1}$/;
     if(!reg.test(document.buildfrom.kernel_ver.value))
     {
         document.buildfrom.kernel_ver.focus();
