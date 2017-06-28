@@ -30,7 +30,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="detail-id">ID <?php echo $build_id;?> 详细信息</h4>
+                    <h4 class="modal-title" id="detail-id">ID <?php echo $build_id;?> 详细信息 <a class="btn btn-default btn-xs" href="detail.php?id=<?php echo $build_id;?>" target="view_window">新窗口打开</a></h4>
                 </div>
                 <div id="detail-content" class="modal-body">
                     <div class="row">
